@@ -8,6 +8,7 @@ import HomeScreen from './components/HomeScreen.jsx';
 import CityScreen from './components/CityScreen.jsx';
 import ProfilScreen from './components/ProfilScreen.jsx';
 import FormScreen from './components/FormScreen.jsx';
+// import TestScreen from './components/TestScreen.jsx';
 import LogoTitle from './components/LogoTitle.jsx';
 import * as SplashScreen from 'expo-splash-screen';
 
