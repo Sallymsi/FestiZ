@@ -2,6 +2,8 @@ import * as React from 'react';
 import { View, Text, Button, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import style from '../Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
+import RNPickerSelect from '@react-native-picker/picker';
+import { Picker } from '@react-native-picker/picker';
 
 
 export default function FormScreen() {
@@ -14,6 +16,9 @@ export default function FormScreen() {
     const [mode, setMode] = React.useState('date');
     const [show, setShow] = React.useState(false);
 
+    const [selectedGender, setSelectedGender] = React.useState();
+
+
     const form = {
         nom: name,
         ville: city,
@@ -21,6 +26,7 @@ export default function FormScreen() {
         date: date,
         min: yearMin,
         max: yearMax,
+        gender: selectedGender,
     }
 
     function sumbit() {
@@ -106,6 +112,17 @@ export default function FormScreen() {
                     onChangeText={onChangeYearMax}
                     placeholder='Age maximum'
                 />
+                <Text>Soirée ...</Text>
+                <Picker
+                    // style={{ width: 150 }}
+                    selectedValue={selectedGender}
+                    onValueChange={(itemValue, itemIndex) =>
+                        setSelectedGender(itemValue)
+                    }>
+                    <Picker.Item label="Homme" value="Homme" />
+                    <Picker.Item label="Femme" value="Femme" />
+                    <Picker.Item label="Mixte" value="Mixte" />
+                </Picker>
                 <Button title="Envoyer" onPress={sumbit}></Button>
             </ScrollView>
 

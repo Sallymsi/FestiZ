@@ -8,8 +8,10 @@
     "ios": "expo start --ios",
     "web": "expo start --web"
   },
+  "type": "module",
   "dependencies": {
     "@react-native-community/datetimepicker": "6.7.3",
+    "@react-native-picker/picker": "2.4.8",
     "@react-navigation/bottom-tabs": "^6.5.8",
     "@react-navigation/native": "^6.1.7",
     "@react-navigation/native-stack": "^6.9.13",
