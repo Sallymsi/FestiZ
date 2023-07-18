@@ -1,7 +1,7 @@
 {
   "expo": {
     "name": "ReactNative",
-    "slug": "dewdwedw",
+    "slug": "test",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
@@ -28,7 +28,7 @@
     },
     "extra": {
       "eas": {
-        "projectId": "d2f45164-46d3-4cc9-bc6e-81f1f211bc0f"
+        "projectId": "6b4fd30d-5b0b-4399-b09b-9ee7115cc8bd"
       }
     },
     "owner": "slackill"

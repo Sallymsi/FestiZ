@@ -1,5 +1,9 @@
 const http = require('http');
+// const fs = require('fs');
 const app = require('./app');
+
+// const key = fs.readFileSync("localhost-key.pem", "utf-8");
+// const cert = fs.readFileSync("localhost.pem", "utf-8");
 
 const normalizePort = val => {
     const port = parseInt(val, 10);

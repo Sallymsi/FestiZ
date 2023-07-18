@@ -1,4 +1,5 @@
 const mysql = require('mysql');
+const express = require('express');
 const dbCon = require("../others/ConDb");
 
 exports.test = (req, res, next) => {
@@ -23,7 +24,7 @@ exports.post = (req, res, next) => {
         if (err) throw err;
         db.query(sql, [name, city, date, people, minYear, maxYear, gender], function (err, result) {
             if (err) throw err;
-            res.status(201).json({ message: "Soirée ajouté à la BDD !" });
+            res.status(201).send({ status: 'success', message: "Soirée ajouté à la BDD !" });
         });
     })
 };

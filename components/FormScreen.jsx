@@ -2,41 +2,57 @@ import * as React from 'react';
 import { View, Text, Button, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import style from '../Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import RNPickerSelect from '@react-native-picker/picker';
 import { Picker } from '@react-native-picker/picker';
+import { addParty } from '../js/fetch';
 
 
-export default function FormScreen() {
+export default function FormScreen({ navigation }) {
     const [name, onChangeName] = React.useState('');
     const [city, onChangeCity] = React.useState('');
     const [people, onChangePeople] = React.useState(0);
     const [yearMin, onChangeYearMin] = React.useState(0);
     const [yearMax, onChangeYearMax] = React.useState(0);
-    const [date, setDate] = React.useState(new Date());
+    const [selectedGender, setSelectedGender] = React.useState();
+    const [date, setDate] = React.useState(new Date().toLocaleDateString());
     const [mode, setMode] = React.useState('date');
     const [show, setShow] = React.useState(false);
 
-    const [selectedGender, setSelectedGender] = React.useState();
+    // const form = new FormData();
+    // form.set('name', name);
+    // form.set('city', city);
+    // form.set('date', date);
+    // form.set('people', people);
+    // form.set('minYear', yearMin);
+    // form.set('maxYear', yearMax);
+    // form.set('gender', selectedGender);
 
+    const dateArray = date.split('/');
+    const newDate = dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0];
 
     const form = {
-        nom: name,
-        ville: city,
-        personnes: people,
-        date: date,
-        min: yearMin,
-        max: yearMax,
-        gender: selectedGender,
-    }
+        "name": name,
+        "city": city,
+        "date": newDate,
+        "people": people,
+        "minYear": yearMin,
+        "maxYear": yearMax,
+        "gender": selectedGender
+    };
 
-    function sumbit() {
+
+    const options = {
+        method: "POST",
+        body: JSON.stringify(form),
+        headers: { "Content-type": "application/json" }
+    };
+
+    function submit() {
         console.log(form);
     }
 
     const onChange = (event, selectedDate) => {
-        const currentDate = selectedDate;
         setShow(false);
-        setDate(currentDate);
+        setDate(selectedDate.toLocaleDateString());
     };
 
     const showMode = (currentMode) => {
@@ -66,7 +82,7 @@ export default function FormScreen() {
                     placeholder='Lieu'
                 />
                 <Button onPress={showDatepicker} title="Show date picker!" />
-                <Button onPress={showTimepicker} title="Show time picker!" />
+                {/* <Button onPress={showTimepicker} title="Show time picker!" /> */}
                 {show && (
                     <View style={style.date}>
                         <DateTimePicker
@@ -74,8 +90,8 @@ export default function FormScreen() {
                             display="default"
 
                             minimumDate={new Date()}
-                            value={date}
-                            mode={mode}
+                            value={new Date()}
+                            mode={'date'}
                             is24Hour={true}
                             onChange={onChange}
                         />
@@ -85,7 +101,7 @@ export default function FormScreen() {
                     editable={false}
                     selectTextOnFocus={false}
                     style={style.input}
-                    value={date.toLocaleString()}
+                    value={newDate}
                     placeholder='Date'
                 />
                 <TextInput
@@ -123,9 +139,8 @@ export default function FormScreen() {
                     <Picker.Item label="Femme" value="Femme" />
                     <Picker.Item label="Mixte" value="Mixte" />
                 </Picker>
-                <Button title="Envoyer" onPress={sumbit}></Button>
+                <Button title="Envoyer" onPress={() => addParty(options, navigation)}></Button>
             </ScrollView>
-
         </SafeAreaView>
     );
 }

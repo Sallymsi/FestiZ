@@ -21,7 +21,7 @@ app.use((req, res, next) => {
 // db.connect(function (err) {
 //     if (err) throw err;
 //     console.log("Connected!");
-//     var sql = "CREATE TABLE soiree (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), city VARCHAR(100), date DATETIME, people INT, minYear INT, maxYear INT, gender VARCHAR(100))";
+//     var sql = "CREATE TABLE soiree (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), city VARCHAR(100), date DATE, people INT, minYear INT, maxYear INT, gender VARCHAR(100))";
 //     db.query(sql, function (err, result) {
 //         if (err) throw err;
 //         console.log("Table created");
