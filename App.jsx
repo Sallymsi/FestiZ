@@ -29,11 +29,6 @@ function BottomTabs({ navigation }) {
           ),
           headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} />,
           headerRight: () => (
-            // <Button
-            //   onPress={() => alert('This is a button!')}
-            //   title="Info"
-            //   color="black"
-            // />
             <Pressable onPress={() => navigation.navigate('Profil')}>
               <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
             </Pressable>
@@ -83,9 +78,6 @@ function App() {
           component={ProfilScreen}
           options={{
             headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
-            tabBarIcon: () => (
-              <MaterialCommunityIcons name="face-man-profile" color="black" size={28} />
-            ),
           }}
         />
       </Stack.Navigator>

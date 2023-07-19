@@ -1,4 +1,5 @@
 export default {
+    // GENERAL
     container: {
         flex: 1,
         height: '100%',
@@ -7,6 +8,7 @@ export default {
         // justifyContent: 'center',
         // width: '100%',
     },
+    // HOMESCREEN
     iconProfil: {
         marginHorizontal: 20,
         fontSize: 40,
@@ -54,23 +56,46 @@ export default {
         // left: 15,
     },
     itemText: {
+        flexDirection: 'row',
         height: '50%',
-        // width: '100%',
+        width: '100%',
         textAlign: 'center',
-        paddingVertical: 18,
+        paddingVertical: 5,
+
     },
     itemTextUnit: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 17,
     },
     itemInfo: {
-        backgroundColor: 'red',
-        width: '40%',
+        flex: 0.4,
+        backgroundColor: 'transparent',
+        borderRadius: 10,
+        // width: '40%',
+        height: '100%',
+        margin: 5,
+        padding: 5,
     },
-    title: {
-        fontSize: 32,
+    itemMaps: {
+        flex: 0.6,
+        // backgroundColor: '#00AF6D',
+        borderRadius: 10,
+        // width: '40%',
+        height: '100%',
+        // margin: 5,
+        margin: 5,
+        // shadowColor: '#171717',
+        // shadowOffset: { width: 2, height: 4 },
+        // shadowOpacity: 0.2,
+        // shadowRadius: 3,
     },
+    map: {
+        width: '100%',
+        height: '100%',
+        borderRadius: 10,
+    },
+    // FORMSCREEN
     input: {
         height: 40,
         margin: 12,
@@ -98,11 +123,8 @@ export default {
         // backgroundColor: 'red',
     },
     picker: {
-        // flex: 1,
         fontSize: 25,
         alignItems: 'center',
         textAlign: 'center',
-        // justifyContent: 'center',
-        // backgroundColor: 'red',
     }
 }

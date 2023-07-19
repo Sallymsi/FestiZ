@@ -1,6 +1,7 @@
 import * as React from 'react';
 import { Text, SafeAreaView, ScrollView, Button, View, Image, Pressable, RefreshControl } from 'react-native';
 import style from '../Style';
+import MapView from 'react-native-maps';
 
 export default function HomeScreen({ navigation }) {
     const url = 'http://192.168.0.28:8080/api/post/get-party/';
@@ -22,7 +23,6 @@ export default function HomeScreen({ navigation }) {
             .then(resp => resp.json())
 
             .then((data) => {
-                console.log('Appel');
                 setParty(data);
             })
     };
@@ -42,9 +42,7 @@ export default function HomeScreen({ navigation }) {
             }>
                 {party.map((element, index) => (
                     <View key={`${element}-${index}`} style={style.item}>
-                        <Pressable onPress={() => navigation.navigate('City', {
-                            city: element.city,
-                        })}>
+                        <Pressable>
                             <Image style={style.itemImg} source={require('../assets/city/effeil.png')} />
                             <View style={style.itemText}>
                                 <View style={style.avatarBlock}>
@@ -54,6 +52,15 @@ export default function HomeScreen({ navigation }) {
                                     <Text style={style.itemTextUnit}>{element.name}</Text>
                                     <Text style={style.itemTextUnit}>{element.city}</Text>
                                     <Text style={style.itemTextUnit}>{element.people} pers. max</Text>
+                                </View>
+                                <View style={style.itemMaps}>
+                                    <MapView style={style.map}
+                                        initialRegion={{
+                                            latitude: 37.78825,
+                                            longitude: -122.4324,
+                                            latitudeDelta: 0.0922,
+                                            longitudeDelta: 0.0421,
+                                        }} />
                                 </View>
                             </View>
                         </Pressable>
