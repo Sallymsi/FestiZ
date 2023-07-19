@@ -16,7 +16,11 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.festiz.myapp"
+      "bundleIdentifier": "com.festiz.myapp",
+      "infoPlist": {
+        "NSLocationWhenInUseUsageDescription": "true",
+        "NSLocationAlwaysAndWhenInUseUsageDescription": "true"
+      }
     },
     "android": {
       "adaptiveIcon": {

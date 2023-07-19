@@ -48,7 +48,7 @@ function BottomTabs({ navigation }) {
       />
       <Tab.Screen
         name="Party"
-        component={ProfilScreen}
+        component={CityScreen}
         options={{
           headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
           tabBarIcon: () => (
