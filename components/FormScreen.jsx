@@ -9,22 +9,13 @@ import { addParty } from '../js/fetch';
 export default function FormScreen({ navigation }) {
     const [name, onChangeName] = React.useState('');
     const [city, onChangeCity] = React.useState('');
-    const [people, onChangePeople] = React.useState(0);
-    const [yearMin, onChangeYearMin] = React.useState(0);
-    const [yearMax, onChangeYearMax] = React.useState(0);
-    const [selectedGender, setSelectedGender] = React.useState();
+    const [people, onChangePeople] = React.useState('');
+    const [yearMin, onChangeYearMin] = React.useState('');
+    const [yearMax, onChangeYearMax] = React.useState('');
+    const [selectedGender, setSelectedGender] = React.useState('Homme');
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
     const [mode, setMode] = React.useState('date');
     const [show, setShow] = React.useState(false);
-
-    // const form = new FormData();
-    // form.set('name', name);
-    // form.set('city', city);
-    // form.set('date', date);
-    // form.set('people', people);
-    // form.set('minYear', yearMin);
-    // form.set('maxYear', yearMax);
-    // form.set('gender', selectedGender);
 
     const dateArray = date.split('/');
     const newDate = dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0];
@@ -46,8 +37,13 @@ export default function FormScreen({ navigation }) {
         headers: { "Content-type": "application/json" }
     };
 
-    function submit() {
-        console.log(form);
+    function clearInput() {
+        onChangeName('');
+        onChangeCity('');
+        onChangePeople('');
+        onChangeYearMin('');
+        onChangeYearMax('');
+        setSelectedGender('Homme');
     }
 
     const onChange = (event, selectedDate) => {
@@ -72,18 +68,29 @@ export default function FormScreen({ navigation }) {
         <SafeAreaView style={style.container}>
             <ScrollView>
                 <TextInput
+                    // ref={this.textInputName}
                     style={style.input}
                     onChangeText={onChangeName}
+                    value={name}
                     placeholder='Nom de la soirée'
+                    keyboardAppearance="dark"
+                    maxLength={30}
+                // enablesReturnKeyAutomatically={true}
+                // enterKeyHint="next"
                 />
                 <TextInput
                     style={style.input}
                     onChangeText={onChangeCity}
-                    placeholder='Lieu'
+                    value={city}
+                    placeholder='Ville'
+                    keyboardAppearance="dark"
+                    maxLength={30}
                 />
-                <Button onPress={showDatepicker} title="Show date picker!" />
+                {/* <Button onPress={showDatepicker} title="Show date picker!" /> */}
                 {/* <Button onPress={showTimepicker} title="Show time picker!" /> */}
-                {show && (
+                {/* {show && ( */}
+                <View style={style.containerDate}>
+                    <Text style={style.textDate}>Date : </Text>
                     <View style={style.date}>
                         <DateTimePicker
                             testID="dateTimePicker"
@@ -96,16 +103,19 @@ export default function FormScreen({ navigation }) {
                             onChange={onChange}
                         />
                     </View>
-                )}
+                    {/* )} */}
+                    {/* <TextInput
+                        style={style.textDate}
+                        editable={false}
+                        selectTextOnFocus={false}
+                        // style={style.input}
+                        value={newDate}
+                        placeholder='Date'
+                    /> */}
+                </View>
+
                 <TextInput
-                    editable={false}
-                    selectTextOnFocus={false}
-                    style={style.input}
-                    value={newDate}
-                    placeholder='Date'
-                />
-                <TextInput
-                    // autoComplete='cc-number'
+                    value={people.toString()}
                     inputMode="numeric"
                     returnKeyType={'done'}
                     style={style.input}
@@ -113,22 +123,22 @@ export default function FormScreen({ navigation }) {
                     placeholder='Nombre de personne(s)'
                 />
                 <TextInput
-                    // autoComplete='cc-number'
                     inputMode="numeric"
+                    value={yearMin.toString()}
                     returnKeyType={'done'}
                     style={style.input}
                     onChangeText={onChangeYearMin}
                     placeholder='Age minimum'
                 />
                 <TextInput
-                    // autoComplete='cc-number'
                     inputMode="numeric"
+                    value={yearMax.toString()}
                     returnKeyType={'done'}
                     style={style.input}
                     onChangeText={onChangeYearMax}
                     placeholder='Age maximum'
                 />
-                <Text>Soirée ...</Text>
+                <Text style={style.picker}>Soirée {selectedGender}</Text>
                 <Picker
                     // style={{ width: 150 }}
                     selectedValue={selectedGender}
@@ -139,7 +149,11 @@ export default function FormScreen({ navigation }) {
                     <Picker.Item label="Femme" value="Femme" />
                     <Picker.Item label="Mixte" value="Mixte" />
                 </Picker>
-                <Button title="Envoyer" onPress={() => addParty(options, navigation)}></Button>
+                <Button title="Envoyer" onPress={() => addParty(options, navigation).then(() => {
+                    clearInput();
+                    navigation.navigate('Home');
+                    alert('Soirée enregistrée !');
+                })}></Button>
             </ScrollView>
         </SafeAreaView>
     );

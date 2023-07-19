@@ -9,13 +9,13 @@ export default {
     },
     item: {
         flex: 1,
-        backgroundColor: '#466365',
+        backgroundColor: '#01C38E',
         height: 200,
         marginVertical: 11,
         marginHorizontal: 7,
         padding: 2,
         borderWidth: 2,
-        borderColor: '#466365',
+        borderColor: '#01C38E',
         borderRadius: 6,
         shadowColor: '#171717',
         shadowOffset: { width: 2, height: 4 },
@@ -47,9 +47,32 @@ export default {
         borderWidth: 1,
         padding: 10,
     },
+    containerDate: {
+        flexDirection: 'row',
+    },
     date: {
         alignItems: 'center',
         justifyContent: 'center',
+        width: '40%',
+        // backgroundColor: 'red',
+    },
+    textDate: {
+        // alignItems: 'center',
+        // justifyContent: 'center',
+        height: 40,
+        margin: 12,
+        fontSize: 20,
+        // borderWidth: 1,
+        padding: 10,
+        width: '30%',
+        // backgroundColor: 'red',
+    },
+    picker: {
+        // flex: 1,
+        fontSize: 25,
+        alignItems: 'center',
+        textAlign: 'center',
+        // justifyContent: 'center',
         // backgroundColor: 'red',
     }
 }

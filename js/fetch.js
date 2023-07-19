@@ -8,8 +8,6 @@ export async function addParty(options, navigation) {
 
         .then(() => {
             console.log("Soirée ajouté à la BDD !");
-            navigation.navigate('Home');
-            alert('Soirée enregistrée !');
         })
 
     // .catch(function (error) {
