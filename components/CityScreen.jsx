@@ -1,17 +1,17 @@
 import * as React from 'react';
 import { View, Text, Button, StyleSheet } from 'react-native';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Key from '../js/keyAccess';
 // import style from '../Style';
 
 export default function CityScreen({ navigation }) {
-    const GOOGLE_PLACES_API_KEY = 'AIzaSyAyrh2x7BkrzBN51rvf4kfS-U6OFNo1G-g';
 
     return (
         <View style={styles.container}>
             <GooglePlacesAutocomplete
                 placeholder="Search"
                 query={{
-                    key: GOOGLE_PLACES_API_KEY,
+                    key: Key(),
                     language: 'fr',
                 }}
                 onPress={(data, details = null) => console.log(data)}
