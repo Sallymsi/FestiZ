@@ -1,4 +1,4 @@
-const url = 'http://192.168.0.28:8080/api/post/post/';
+const url = 'http://192.168.0.28:8080/api/post/set-party/';
 
 // Requête POST pour les posts (party):
 export async function addParty(options, navigation) {

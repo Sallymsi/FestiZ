@@ -5,8 +5,8 @@ const postCtrl = require('../controllers/post.js');
 // const multer = require('../middleware/multer-file');
 
 // Initialisation des routes à partir du Routeur d'Express :
-router.get('/', postCtrl.test);
-router.post('/post', postCtrl.post);
+router.post('/set-party', postCtrl.setParty);
+router.get('/get-party', postCtrl.getParty);
 // router.post('/response', auth, postCtrl.reponse);
 // router.delete('/delete', auth, postCtrl.deleteMsg);
 // router.delete('/deleteAnswer', auth, postCtrl.deleteAnswer);

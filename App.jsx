@@ -1,5 +1,6 @@
 import * as React from 'react';
-import { Button } from 'react-native';
+import { Button, Pressable } from 'react-native';
+import style from './Style';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
@@ -16,7 +17,7 @@ SplashScreen.preventAutoHideAsync();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function BottomTabs() {
+function BottomTabs({ navigation }) {
   return (
     <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
       <Tab.Screen
@@ -28,11 +29,15 @@ function BottomTabs() {
           ),
           headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} />,
           headerRight: () => (
-            <Button
-              onPress={() => alert('This is a button!')}
-              title="Info"
-              color="black"
-            />
+            // <Button
+            //   onPress={() => alert('This is a button!')}
+            //   title="Info"
+            //   color="black"
+            // />
+            <Pressable onPress={() => navigation.navigate('Profil')}>
+              <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
+            </Pressable>
+
           ),
         }}
       />
@@ -47,12 +52,12 @@ function BottomTabs() {
         }}
       />
       <Tab.Screen
-        name="profil"
+        name="Party"
         component={ProfilScreen}
         options={{
           headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
           tabBarIcon: () => (
-            <MaterialCommunityIcons name="face-man-profile" color="black" size={28} />
+            <MaterialCommunityIcons name="party-popper" size={28} color="black" />
           ),
         }}
       />
@@ -72,6 +77,16 @@ function App() {
         <Stack.Screen
           name="City"
           component={CityScreen}
+        />
+        <Stack.Screen
+          name="Profil"
+          component={ProfilScreen}
+          options={{
+            headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
+            tabBarIcon: () => (
+              <MaterialCommunityIcons name="face-man-profile" color="black" size={28} />
+            ),
+          }}
         />
       </Stack.Navigator>
     </NavigationContainer >

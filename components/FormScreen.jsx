@@ -30,7 +30,6 @@ export default function FormScreen({ navigation }) {
         "gender": selectedGender
     };
 
-
     const options = {
         method: "POST",
         body: JSON.stringify(form),
@@ -90,7 +89,7 @@ export default function FormScreen({ navigation }) {
                 {/* <Button onPress={showTimepicker} title="Show time picker!" /> */}
                 {/* {show && ( */}
                 <View style={style.containerDate}>
-                    <Text style={style.textDate}>Date : </Text>
+                    <Text style={style.textDate}>Date :</Text>
                     <View style={style.date}>
                         <DateTimePicker
                             testID="dateTimePicker"

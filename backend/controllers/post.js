@@ -1,13 +1,7 @@
 const mysql = require('mysql');
-const express = require('express');
 const dbCon = require("../others/ConDb");
 
-exports.test = (req, res, next) => {
-
-    res.status(201).json({ message: "C'est OK !" });
-};
-
-exports.post = (req, res, next) => {
+exports.setParty = (req, res, next) => {
     let name = req.body.name;
     let city = req.body.city;
     let date = req.body.date;
@@ -24,7 +18,23 @@ exports.post = (req, res, next) => {
         if (err) throw err;
         db.query(sql, [name, city, date, people, minYear, maxYear, gender], function (err, result) {
             if (err) throw err;
-            res.status(201).send({ status: 'success', message: "Soirée ajouté à la BDD !" });
+            res.status(201).json({ status: 'success', message: "Soirée ajouté à la BDD !" });
+        });
+    })
+};
+
+
+exports.getParty = (req, res, next) => {
+
+    const db = dbCon();
+
+    let sql = "SELECT name, city, date, people, minYear, maxyear, gender FROM soiree";
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, function (err, result) {
+            if (err) throw err;
+            res.status(201).json(result);
         });
     })
 };

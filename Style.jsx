@@ -7,10 +7,16 @@ export default {
         // justifyContent: 'center',
         // width: '100%',
     },
+    iconProfil: {
+        marginHorizontal: 20,
+        fontSize: 40,
+        // width: 40
+    },
     item: {
         flex: 1,
         backgroundColor: '#01C38E',
-        height: 200,
+        // flexDirection: 'column',
+        height: 220,
         marginVertical: 11,
         marginHorizontal: 7,
         padding: 2,
@@ -24,19 +30,43 @@ export default {
     },
     itemImg: {
         width: '100%',
-        height: '75%',
+        height: '50%',
         borderRadius: 6,
         // marginVertical: 10,
 
     },
+    avatarBlock: {
+        width: 50,
+        height: 50,
+        // backgroundColor: 'red',
+        borderRadius: 25,
+        position: 'absolute',
+        top: -35,
+        left: 15,
+    },
+    avatar: {
+        width: '100%',
+        height: '100%',
+        // backgroundColor: 'red',
+        borderRadius: 25,
+        // position: 'absolute',
+        // top: -25,
+        // left: 15,
+    },
     itemText: {
-        height: '25%',
+        height: '50%',
         // width: '100%',
+        textAlign: 'center',
+        paddingVertical: 18,
+    },
+    itemTextUnit: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 30,
-        textAlign: 'center',
-        paddingVertical: 8,
+        fontSize: 15,
+    },
+    itemInfo: {
+        backgroundColor: 'red',
+        width: '40%',
     },
     title: {
         fontSize: 32,
