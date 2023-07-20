@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Text, SafeAreaView, ScrollView, Button, View, Image, Pressable, RefreshControl } from 'react-native';
 import style from '../Style';
-import MapView from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 
 export default function HomeScreen({ navigation }) {
     const url = 'http://192.168.0.28:8080/api/post/get-party/';
@@ -50,17 +50,30 @@ export default function HomeScreen({ navigation }) {
                                 </View>
                                 <View style={style.itemInfo}>
                                     <Text style={style.itemTextUnit}>{element.name}</Text>
-                                    <Text style={style.itemTextUnit}>{element.city}</Text>
-                                    <Text style={style.itemTextUnit}>{element.people} pers. max</Text>
+                                    <Text style={style.itemTextUnitCity}>{element.city}</Text>
+                                    <Text style={style.itemTextUnitAddress}>{element.address}</Text>
+                                    {/* <Text style={style.itemTextUnitAddress}>{element.date}</Text> */}
+                                    <Text style={style.itemTextUnitPeople}>{element.people} pers. max ({element.gender})</Text>
                                 </View>
                                 <View style={style.itemMaps}>
                                     <MapView style={style.map}
                                         initialRegion={{
-                                            latitude: 37.78825,
-                                            longitude: -122.4324,
-                                            latitudeDelta: 0.0922,
-                                            longitudeDelta: 0.0421,
-                                        }} />
+                                            latitude: `${element.lat}`,
+                                            longitude: `${element.lng}`,
+                                            latitudeDelta: 0.04,
+                                            longitudeDelta: 0.05,
+                                        }}
+                                        zoomEnabled={false}
+                                        minZoomLevel={13}
+                                        maxZoomLevel={13}
+                                        rotateEnabled={false}
+                                        scrollEnabled={false}
+                                    >
+                                        <Marker
+                                            coordinate={{ latitude: element.lat, longitude: element.lng }}
+                                            pinColor={'green'}
+                                        />
+                                    </MapView>
                                 </View>
                             </View>
                         </Pressable>

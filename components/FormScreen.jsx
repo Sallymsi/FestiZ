@@ -1,14 +1,19 @@
-import * as React from 'react';
+import React, { useRef } from 'react';
 import { View, Text, Button, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import style from '../Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
+import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
+import Key from '../js/keyAccess';
+import Geocoder from 'react-native-geocoding';
 import { addParty } from '../js/fetch';
-
 
 export default function FormScreen({ navigation }) {
     const [name, onChangeName] = React.useState('');
     const [city, onChangeCity] = React.useState('');
+    const [address, onChangeAddress] = React.useState('');
+    const [latitude, onChangeLatitude] = React.useState(0.0);
+    const [longitude, onChangeLongitude] = React.useState(0.0);
     const [people, onChangePeople] = React.useState('');
     const [yearMin, onChangeYearMin] = React.useState('');
     const [yearMax, onChangeYearMax] = React.useState('');
@@ -16,13 +21,32 @@ export default function FormScreen({ navigation }) {
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
     const [mode, setMode] = React.useState('date');
     const [show, setShow] = React.useState(false);
+    const ref = useRef();
 
     const dateArray = date.split('/');
     const newDate = dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0];
 
+    Geocoder.init("", { language: "fr" });
+
+    async function PlaceId(placeId) {
+        console.log(placeId);
+        Geocoder.from(placeId)
+            .then(json => {
+                var location = json.results[0].geometry.location;
+                console.log(location);
+                onChangeLatitude(location.lat);
+                onChangeLongitude(location.lng);
+                onChangeAddress(placeId);
+            })
+            .catch(error => console.warn(error));
+    };
+
     const form = {
         "name": name,
         "city": city,
+        "address": address,
+        "lat": latitude,
+        "lng": longitude,
         "date": newDate,
         "people": people,
         "minYear": yearMin,
@@ -43,6 +67,7 @@ export default function FormScreen({ navigation }) {
         onChangeYearMin('');
         onChangeYearMax('');
         setSelectedGender('Homme');
+        ref.current?.clear();
     }
 
     const onChange = (event, selectedDate) => {
@@ -65,17 +90,17 @@ export default function FormScreen({ navigation }) {
 
     return (
         <SafeAreaView style={style.container}>
-            <ScrollView>
+            <ScrollView
+                nestedScrollEnabled={true}
+                keyboardShouldPersistTaps={'handled'}
+            >
                 <TextInput
-                    // ref={this.textInputName}
                     style={style.input}
                     onChangeText={onChangeName}
                     value={name}
                     placeholder='Nom de la soirée'
                     keyboardAppearance="dark"
                     maxLength={30}
-                // enablesReturnKeyAutomatically={true}
-                // enterKeyHint="next"
                 />
                 <TextInput
                     style={style.input}
@@ -85,16 +110,32 @@ export default function FormScreen({ navigation }) {
                     keyboardAppearance="dark"
                     maxLength={30}
                 />
-                {/* <Button onPress={showDatepicker} title="Show date picker!" /> */}
-                {/* <Button onPress={showTimepicker} title="Show time picker!" /> */}
-                {/* {show && ( */}
+                <GooglePlacesAutocomplete
+                    ref={ref}
+                    placeholder="Search"
+                    minLength={2}
+                    query={{
+                        key: Key(),
+                        language: 'fr',
+                    }}
+                    onPress={(data, details = null) => PlaceId(data.description)}
+                    onFail={(error) => console.error(error)}
+                    disableScroll={true}
+                    styles={{
+                        textInput: {
+                            height: 40,
+                            fontSize: 16,
+                            margin: 12,
+                            padding: 10,
+                        }
+                    }}
+                />
                 <View style={style.containerDate}>
                     <Text style={style.textDate}>Date :</Text>
                     <View style={style.date}>
                         <DateTimePicker
                             testID="dateTimePicker"
                             display="default"
-
                             minimumDate={new Date()}
                             value={new Date()}
                             mode={'date'}
@@ -102,15 +143,6 @@ export default function FormScreen({ navigation }) {
                             onChange={onChange}
                         />
                     </View>
-                    {/* )} */}
-                    {/* <TextInput
-                        style={style.textDate}
-                        editable={false}
-                        selectTextOnFocus={false}
-                        // style={style.input}
-                        value={newDate}
-                        placeholder='Date'
-                    /> */}
                 </View>
 
                 <TextInput
@@ -154,6 +186,6 @@ export default function FormScreen({ navigation }) {
                     alert('Soirée enregistrée !');
                 })}></Button>
             </ScrollView>
-        </SafeAreaView>
+        </SafeAreaView >
     );
 }

@@ -2,22 +2,16 @@ export default {
     // GENERAL
     container: {
         flex: 1,
-        height: '100%',
-        backgroundColor: '#fff',
-        // alignItems: 'center',
-        // justifyContent: 'center',
-        // width: '100%',
+        backgroundColor: '#ecf0f1',
     },
     // HOMESCREEN
     iconProfil: {
         marginHorizontal: 20,
         fontSize: 40,
-        // width: 40
     },
     item: {
         flex: 1,
         backgroundColor: '#01C38E',
-        // flexDirection: 'column',
         height: 220,
         marginVertical: 11,
         marginHorizontal: 7,
@@ -34,13 +28,10 @@ export default {
         width: '100%',
         height: '50%',
         borderRadius: 6,
-        // marginVertical: 10,
-
     },
     avatarBlock: {
         width: 50,
         height: 50,
-        // backgroundColor: 'red',
         borderRadius: 25,
         position: 'absolute',
         top: -35,
@@ -49,11 +40,7 @@ export default {
     avatar: {
         width: '100%',
         height: '100%',
-        // backgroundColor: 'red',
         borderRadius: 25,
-        // position: 'absolute',
-        // top: -25,
-        // left: 15,
     },
     itemText: {
         flexDirection: 'row',
@@ -68,8 +55,26 @@ export default {
         fontWeight: 'bold',
         fontSize: 17,
     },
+    itemTextUnitCity: {
+        color: '#fff',
+        fontWeight: 'normal',
+        fontSize: 12,
+        paddingTop: 4,
+        paddingBottom: 4,
+    },
+    itemTextUnitAddress: {
+        color: '#fff',
+        fontWeight: 'bold',
+        fontSize: 10,
+    },
+    itemTextUnitPeople: {
+        color: '#fff',
+        fontWeight: 'normal',
+        fontSize: 13,
+        paddingTop: 8,
+    },
     itemInfo: {
-        flex: 0.4,
+        flex: 0.5,
         backgroundColor: 'transparent',
         borderRadius: 10,
         // width: '40%',
@@ -78,7 +83,7 @@ export default {
         padding: 5,
     },
     itemMaps: {
-        flex: 0.6,
+        flex: 0.5,
         // backgroundColor: '#00AF6D',
         borderRadius: 10,
         // width: '40%',
@@ -99,14 +104,24 @@ export default {
     input: {
         height: 40,
         margin: 12,
-        borderWidth: 1,
+        // borderWidth: 1,
         padding: 10,
+        backgroundColor: '#fff',
+        borderRadius: 5,
+
+    },
+    inputAutoComplete: {
+        height: 40,
+        // margin: 12,
+        // borderWidth: 1,
+        // padding: 5,
     },
     containerDate: {
+        // flex: 1,
         flexDirection: 'row',
     },
     date: {
-        alignItems: 'center',
+        // alignItems: 'center',
         justifyContent: 'center',
         width: '40%',
         // backgroundColor: 'red',

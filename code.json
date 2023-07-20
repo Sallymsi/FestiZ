@@ -1,0 +1,50 @@
+{
+    "description": "McDonald's, Fontaine d'Argence, Boulevard Gambetta, Troyes, France",
+    "matched_substrings": [
+        {
+            "length": 10,
+            "offset": 0
+        },
+        {
+            "length": 6,
+            "offset": 52
+        }
+    ],
+    "place_id": "ChIJ64XthFiY7kcRoBukbxaLBLw",
+    "reference": "ChIJ64XthFiY7kcRoBukbxaLBLw",
+    "structured_formatting": {
+        "main_text": "McDonald's",
+        "main_text_matched_substrings": [],
+        "secondary_text": "Fontaine d'Argence, Boulevard Gambetta, Troyes, France",
+        "secondary_text_matched_substrings": []
+    },
+    "terms": [
+        {
+            "offset": 0,
+            "value": "McDonald's"
+        },
+        {
+            "offset": 12,
+            "value": "Fontaine d'Argence"
+        },
+        {
+            "offset": 32,
+            "value": "Boulevard Gambetta"
+        },
+        {
+            "offset": 52,
+            "value": "Troyes"
+        },
+        {
+            "offset": 60,
+            "value": "France"
+        }
+    ],
+    "types": [
+        "meal_takeaway",
+        "restaurant",
+        "point_of_interest",
+        "food",
+        "establishment"
+    ]
+}
