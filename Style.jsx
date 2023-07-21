@@ -141,5 +141,17 @@ export default {
         fontSize: 25,
         alignItems: 'center',
         textAlign: 'center',
+        marginTop: 10,
+    },
+    containsRow: {
+        flexDirection: 'row',
+        justifyContent: 'space-around',
+        marginVertical: 10,
+    },
+    inputSlider: {
+        width: '30%',
+    },
+    slider: {
+        width: '50%',
     }
 }

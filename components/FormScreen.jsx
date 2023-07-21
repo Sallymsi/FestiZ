@@ -7,6 +7,7 @@ import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplet
 import Key from '../js/keyAccess';
 import Geocoder from 'react-native-geocoding';
 import { addParty } from '../js/fetch';
+import { Slider } from '@react-native-assets/slider';
 
 export default function FormScreen({ navigation }) {
     const [name, onChangeName] = React.useState('');
@@ -144,40 +145,75 @@ export default function FormScreen({ navigation }) {
                         />
                     </View>
                 </View>
+                <View style={style.containsRow}>
+                    <TextInput
+                        value={people.toString()}
+                        inputMode="numeric"
+                        returnKeyType={'done'}
+                        style={style.inputSlider}
+                        placeholder='Nombre de personne(s)'
+                        editable={false}
+                    />
+                    <Slider
+                        value={0}
+                        minimumValue={4}
+                        maximumValue={20}
+                        step={1}
+                        onValueChange={onChangePeople}
+                        thumbTintColor='#01C38E'
+                        thumbSize={20}
+                        style={style.slider}
+                    />
+                </View>
+                <View style={style.containsRow}>
+                    <TextInput
+                        inputMode="numeric"
+                        value={yearMin.toString()}
+                        returnKeyType={'done'}
+                        style={style.inputSlider}
+                        placeholder='Age minimum'
+                        editable={false}
+                    />
+                    <Slider
+                        value={18}
+                        minimumValue={18}
+                        maximumValue={80}
+                        step={1}
+                        onValueChange={onChangeYearMin}
+                        thumbTintColor='#01C38E'
+                        thumbSize={20}
+                        style={style.slider}
+                    />
+                </View>
+                <View style={style.containsRow}>
+                    <TextInput
+                        inputMode="numeric"
+                        value={yearMax.toString()}
+                        returnKeyType={'done'}
+                        style={style.inputSlider}
+                        placeholder='Age maximum'
+                        editable={false}
+                    />
+                    <Slider
+                        value={18}
+                        minimumValue={18}
+                        maximumValue={80}
+                        step={1}
+                        onValueChange={onChangeYearMax}
+                        thumbTintColor='#01C38E'
+                        thumbSize={20}
+                        style={style.slider}
+                    />
+                </View>
 
-                <TextInput
-                    value={people.toString()}
-                    inputMode="numeric"
-                    returnKeyType={'done'}
-                    style={style.input}
-                    onChangeText={onChangePeople}
-                    placeholder='Nombre de personne(s)'
-                />
-                <TextInput
-                    inputMode="numeric"
-                    value={yearMin.toString()}
-                    returnKeyType={'done'}
-                    style={style.input}
-                    onChangeText={onChangeYearMin}
-                    placeholder='Age minimum'
-                />
-                <TextInput
-                    inputMode="numeric"
-                    value={yearMax.toString()}
-                    returnKeyType={'done'}
-                    style={style.input}
-                    onChangeText={onChangeYearMax}
-                    placeholder='Age maximum'
-                />
                 <Text style={style.picker}>Soirée {selectedGender}</Text>
                 <Picker
-                    // style={{ width: 150 }}
                     selectedValue={selectedGender}
                     onValueChange={(itemValue, itemIndex) =>
                         setSelectedGender(itemValue)
                     }>
-                    <Picker.Item label="Homme" value="Homme" />
                     <Picker.Item label="Femme" value="Femme" />
+                    <Picker.Item label="Homme" value="Homme" />
                     <Picker.Item label="Mixte" value="Mixte" />
                 </Picker>
                 <Button title="Envoyer" onPress={() => addParty(options, navigation).then(() => {

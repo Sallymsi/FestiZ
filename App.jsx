@@ -40,7 +40,7 @@ function BottomTabs({ navigation }) {
         name="Form"
         component={FormScreen}
         options={{
-          headerTitle: (props) => <LogoTitle {...props} title={"Formulaire"} />,
+          headerTitle: (props) => <LogoTitle {...props} title={"Party"} />,
           tabBarIcon: () => (
             <AntDesign name="pluscircleo" color="black" size={34} />
           ),

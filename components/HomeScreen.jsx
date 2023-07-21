@@ -50,9 +50,8 @@ export default function HomeScreen({ navigation }) {
                                 </View>
                                 <View style={style.itemInfo}>
                                     <Text style={style.itemTextUnit}>{element.name}</Text>
-                                    <Text style={style.itemTextUnitCity}>{element.city}</Text>
+                                    <Text style={style.itemTextUnitCity}>{element.city} ({element.date.substr(0, 10)})</Text>
                                     <Text style={style.itemTextUnitAddress}>{element.address}</Text>
-                                    {/* <Text style={style.itemTextUnitAddress}>{element.date}</Text> */}
                                     <Text style={style.itemTextUnitPeople}>{element.people} pers. max ({element.gender})</Text>
                                 </View>
                                 <View style={style.itemMaps}>
