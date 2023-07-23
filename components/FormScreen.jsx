@@ -22,6 +22,7 @@ export default function FormScreen({ navigation }) {
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
     const [mode, setMode] = React.useState('date');
     const [show, setShow] = React.useState(false);
+
     const ref = useRef();
 
     const dateArray = date.split('/');
