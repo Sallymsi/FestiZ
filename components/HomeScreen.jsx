@@ -49,7 +49,7 @@ export default function HomeScreen({ navigation }) {
                                     <Image style={style.avatar} source={require('../assets/city/user.jpg')} />
                                 </View>
                                 <View style={style.itemInfo}>
-                                    <Text style={style.itemTextUnit}>{element.name}</Text>
+                                    <Text style={style.itemTextUnit}>{element.name} ({element.activity})</Text>
                                     <Text style={style.itemTextUnitCity}>{element.city} ({element.date.substr(0, 10)})</Text>
                                     <Text style={style.itemTextUnitAddress}>{element.address}</Text>
                                     <Text style={style.itemTextUnitPeople}>{element.people} pers. max ({element.gender})</Text>

@@ -53,7 +53,7 @@ export default {
     itemTextUnit: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 17,
+        fontSize: 15,
     },
     itemTextUnitCity: {
         color: '#fff',
@@ -153,5 +153,32 @@ export default {
     },
     slider: {
         width: '50%',
-    }
+    },
+    blockPicker: {
+        alignItems: 'center',
+        textAlign: 'center',
+        padding: 10,
+    },
+    wrapperHorizontal: {
+        height: 60,
+        justifyContent: 'center',
+        color: 'black',
+        marginBottom: 0,
+    },
+    itemStyleHorizontal: {
+        marginRight: 10,
+        height: 40,
+        paddingHorizontal: 20,
+        // borderWidth: 1,
+        // borderColor: 'grey',
+        borderRadius: 25,
+        textAlign: 'center',
+        justifyContent: 'center',
+        backgroundColor: 'white',
+    },
+    itemSelectedStyleHorizontal: {
+        // borderWidth: 2,
+        // borderColor: '#DAA520',
+        backgroundColor: '#01C38E',
+    },
 }

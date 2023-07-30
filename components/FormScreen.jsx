@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { View, Text, Button, SafeAreaView, TextInput, ScrollView } from 'react-native';
+import { View, Text, Button, SafeAreaView, TextInput, ScrollView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import style from '../Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { Picker } from '@react-native-picker/picker';
@@ -22,11 +22,20 @@ export default function FormScreen({ navigation }) {
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
     const [mode, setMode] = React.useState('date');
     const [show, setShow] = React.useState(false);
+    const [activityIndex, setActivityIndex] = React.useState(0);
+    const [activityType, setActivityType] = React.useState('');
 
     const ref = useRef();
 
     const dateArray = date.split('/');
     const newDate = dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0];
+
+    const activityList = [
+        'Bar',
+        'Restaurant',
+        'Pique-nique',
+        'Billard',
+    ];
 
     Geocoder.init("", { language: "fr" });
 
@@ -46,6 +55,7 @@ export default function FormScreen({ navigation }) {
     const form = {
         "name": name,
         "city": city,
+        'activity': activityType,
         "address": address,
         "lat": latitude,
         "lng": longitude,
@@ -90,6 +100,48 @@ export default function FormScreen({ navigation }) {
         showMode('time');
     };
 
+    const selectedvalue = (index, item) => {
+        setActivityIndex(index);
+        setActivityType(item);
+    };
+
+    const CustomPicker = ({ label, data, currentIndex, onSelected }) => {
+        return (
+            <View style={style.blockPicker}>
+                <Text>{label}</Text>
+                <View style={style.wrapperHorizontal}>
+                    <FlatList
+                        bounces
+                        horizontal
+                        data={data}
+                        keyExtractor={item => String(item)}
+                        renderItem={({ item, index }) => {
+                            const selected = index === currentIndex;
+                            return (
+                                <TouchableWithoutFeedback onPress={() => onSelected(index, item)}>
+                                    <View
+                                        style={[
+                                            style.itemStyleHorizontal,
+                                            selected && style.itemSelectedStyleHorizontal,
+                                        ]}>
+                                        <Text
+                                            style={{
+                                                textAlign: 'center',
+                                                color: selected ? 'black' : 'grey',
+                                                fontWeight: selected ? 'bold' : 'normal',
+                                            }}>
+                                            {item + ''}
+                                        </Text>
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            );
+                        }}
+                    />
+                </View>
+            </View >
+        );
+    };
+
     return (
         <SafeAreaView style={style.container}>
             <ScrollView
@@ -111,6 +163,12 @@ export default function FormScreen({ navigation }) {
                     placeholder='Ville'
                     keyboardAppearance="dark"
                     maxLength={30}
+                />
+                <CustomPicker
+                    // label="Activité"
+                    data={activityList}
+                    currentIndex={activityIndex}
+                    onSelected={selectedvalue}
                 />
                 <GooglePlacesAutocomplete
                     ref={ref}
