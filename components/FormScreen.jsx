@@ -2,7 +2,6 @@ import React, { useRef } from 'react';
 import { View, Text, Button, SafeAreaView, TextInput, ScrollView, FlatList, TouchableWithoutFeedback } from 'react-native';
 import style from '../Style';
 import DateTimePicker from '@react-native-community/datetimepicker';
-import { Picker } from '@react-native-picker/picker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Key from '../js/keyAccess';
 import Geocoder from 'react-native-geocoding';
@@ -18,12 +17,13 @@ export default function FormScreen({ navigation }) {
     const [people, onChangePeople] = React.useState('');
     const [yearMin, onChangeYearMin] = React.useState('');
     const [yearMax, onChangeYearMax] = React.useState('');
-    const [selectedGender, setSelectedGender] = React.useState('Homme');
-    const [date, setDate] = React.useState(new Date().toLocaleDateString());
-    const [mode, setMode] = React.useState('date');
-    const [show, setShow] = React.useState(false);
+    const [genderTypeIndex, setGenderTypeIndex] = React.useState(1);
+    const [genderType, setGenderType] = React.useState('Homme');
     const [activityIndex, setActivityIndex] = React.useState(0);
     const [activityType, setActivityType] = React.useState('');
+    const [date, setDate] = React.useState(new Date().toLocaleDateString());
+    // const [mode, setMode] = React.useState('date');
+    // const [show, setShow] = React.useState(false);
 
     const ref = useRef();
 
@@ -35,6 +35,12 @@ export default function FormScreen({ navigation }) {
         'Restaurant',
         'Pique-nique',
         'Billard',
+    ];
+
+    const genderList = [
+        'Femme',
+        'Mixte',
+        'Homme',
     ];
 
     Geocoder.init("", { language: "fr" });
@@ -63,7 +69,7 @@ export default function FormScreen({ navigation }) {
         "people": people,
         "minYear": yearMin,
         "maxYear": yearMax,
-        "gender": selectedGender
+        "gender": genderType
     };
 
     const options = {
@@ -78,8 +84,11 @@ export default function FormScreen({ navigation }) {
         onChangePeople('');
         onChangeYearMin('');
         onChangeYearMax('');
-        setSelectedGender('Homme');
+        setGenderTypeIndex(1);
+        setGenderType('Homme');
         ref.current?.clear();
+        setActivityIndex(0);
+        setActivityType('');
     }
 
     const onChange = (event, selectedDate) => {
@@ -87,22 +96,27 @@ export default function FormScreen({ navigation }) {
         setDate(selectedDate.toLocaleDateString());
     };
 
-    const showMode = (currentMode) => {
-        setShow(true);
-        setMode(currentMode);
-    };
+    // const showMode = (currentMode) => {
+    //     setShow(true);
+    //     setMode(currentMode);
+    // };
 
-    const showDatepicker = () => {
-        showMode('date');
-    };
+    // const showDatepicker = () => {
+    //     showMode('date');
+    // };
 
-    const showTimepicker = () => {
-        showMode('time');
-    };
+    // const showTimepicker = () => {
+    //     showMode('time');
+    // };
 
-    const selectedvalue = (index, item) => {
+    const selectedValue = (index, item) => {
         setActivityIndex(index);
         setActivityType(item);
+    };
+
+    const selectedGender = (index, item) => {
+        setGenderTypeIndex(index);
+        setGenderType(item);
     };
 
     const CustomPicker = ({ label, data, currentIndex, onSelected }) => {
@@ -168,7 +182,7 @@ export default function FormScreen({ navigation }) {
                     // label="Activité"
                     data={activityList}
                     currentIndex={activityIndex}
-                    onSelected={selectedvalue}
+                    onSelected={selectedValue}
                 />
                 <GooglePlacesAutocomplete
                     ref={ref}
@@ -220,7 +234,7 @@ export default function FormScreen({ navigation }) {
                         step={1}
                         onValueChange={onChangePeople}
                         thumbTintColor='#01C38E'
-                        thumbSize={20}
+                        thumbSize={25}
                         style={style.slider}
                     />
                 </View>
@@ -240,7 +254,7 @@ export default function FormScreen({ navigation }) {
                         step={1}
                         onValueChange={onChangeYearMin}
                         thumbTintColor='#01C38E'
-                        thumbSize={20}
+                        thumbSize={25}
                         style={style.slider}
                     />
                 </View>
@@ -260,22 +274,17 @@ export default function FormScreen({ navigation }) {
                         step={1}
                         onValueChange={onChangeYearMax}
                         thumbTintColor='#01C38E'
-                        thumbSize={20}
+                        thumbSize={25}
                         style={style.slider}
                     />
                 </View>
-
-                <Text style={style.picker}>Soirée {selectedGender}</Text>
-                <Picker
-                    selectedValue={selectedGender}
-                    onValueChange={(itemValue, itemIndex) =>
-                        setSelectedGender(itemValue)
-                    }>
-                    <Picker.Item label="Femme" value="Femme" />
-                    <Picker.Item label="Homme" value="Homme" />
-                    <Picker.Item label="Mixte" value="Mixte" />
-                </Picker>
-                <Button title="Envoyer" onPress={() => addParty(options, navigation).then(() => {
+                <Text style={style.picker}>Soirée {genderType}</Text>
+                <CustomPicker
+                    data={genderList}
+                    currentIndex={genderTypeIndex}
+                    onSelected={selectedGender}
+                />
+                <Button color="#01C38E" title="Envoyer" onPress={() => addParty(options, navigation).then(() => {
                     clearInput();
                     navigation.navigate('Home');
                     alert('Soirée enregistrée !');

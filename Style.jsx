@@ -90,10 +90,6 @@ export default {
         height: '100%',
         // margin: 5,
         margin: 5,
-        // shadowColor: '#171717',
-        // shadowOffset: { width: 2, height: 4 },
-        // shadowOpacity: 0.2,
-        // shadowRadius: 3,
     },
     map: {
         width: '100%',
@@ -112,9 +108,6 @@ export default {
     },
     inputAutoComplete: {
         height: 40,
-        // margin: 12,
-        // borderWidth: 1,
-        // padding: 5,
     },
     containerDate: {
         // flex: 1,
@@ -127,15 +120,11 @@ export default {
         // backgroundColor: 'red',
     },
     textDate: {
-        // alignItems: 'center',
-        // justifyContent: 'center',
         height: 40,
         margin: 12,
         fontSize: 20,
-        // borderWidth: 1,
         padding: 10,
         width: '30%',
-        // backgroundColor: 'red',
     },
     picker: {
         fontSize: 25,
@@ -169,16 +158,12 @@ export default {
         marginRight: 10,
         height: 40,
         paddingHorizontal: 20,
-        // borderWidth: 1,
-        // borderColor: 'grey',
         borderRadius: 25,
         textAlign: 'center',
         justifyContent: 'center',
         backgroundColor: 'white',
     },
     itemSelectedStyleHorizontal: {
-        // borderWidth: 2,
-        // borderColor: '#DAA520',
         backgroundColor: '#01C38E',
-    },
+    }
 }
