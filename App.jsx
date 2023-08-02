@@ -1,15 +1,15 @@
 import * as React from 'react';
-import { Button, Pressable } from 'react-native';
+import { Pressable } from 'react-native';
 import style from './Style';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
 import HomeScreen from './components/HomeScreen.jsx';
-import CityScreen from './components/CityScreen.jsx';
+import SigninScreen from './components/SigninScreen.jsx';
 import ProfilScreen from './components/ProfilScreen.jsx';
 import FormScreen from './components/FormScreen.jsx';
-import LogoTitle from './components/LogoTitle.jsx';
+import LogoTitle from './components/utils/LogoTitle.jsx';
 import * as SplashScreen from 'expo-splash-screen';
 
 SplashScreen.preventAutoHideAsync();
@@ -48,7 +48,7 @@ function BottomTabs({ navigation }) {
       />
       <Tab.Screen
         name="Party"
-        component={CityScreen}
+        component={SigninScreen}
         options={{
           headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
           tabBarIcon: () => (
@@ -71,7 +71,7 @@ function App() {
         />
         <Stack.Screen
           name="City"
-          component={CityScreen}
+          component={SigninScreen}
         />
         <Stack.Screen
           name="Profil"

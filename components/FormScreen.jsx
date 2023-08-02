@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
-import { View, Text, Button, SafeAreaView, TextInput, ScrollView, FlatList, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, Button, SafeAreaView, TextInput, ScrollView } from 'react-native';
 import style from '../Style';
+import CustomPicker from './utils/CustomPicker';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { GooglePlacesAutocomplete } from 'react-native-google-places-autocomplete';
 import Key from '../js/keyAccess';
@@ -14,9 +15,9 @@ export default function FormScreen({ navigation }) {
     const [address, onChangeAddress] = React.useState('');
     const [latitude, onChangeLatitude] = React.useState(0.0);
     const [longitude, onChangeLongitude] = React.useState(0.0);
-    const [people, onChangePeople] = React.useState('');
-    const [yearMin, onChangeYearMin] = React.useState('');
-    const [yearMax, onChangeYearMax] = React.useState('');
+    const [people, onChangePeople] = React.useState(4);
+    const [yearMin, onChangeYearMin] = React.useState(18);
+    const [yearMax, onChangeYearMax] = React.useState(18);
     const [genderTypeIndex, setGenderTypeIndex] = React.useState(1);
     const [genderType, setGenderType] = React.useState('Homme');
     const [activityIndex, setActivityIndex] = React.useState(0);
@@ -43,7 +44,7 @@ export default function FormScreen({ navigation }) {
         'Homme',
     ];
 
-    Geocoder.init("", { language: "fr" });
+    Geocoder.init(Key(), { language: "fr" });
 
     async function PlaceId(placeId) {
         console.log(placeId);
@@ -81,14 +82,14 @@ export default function FormScreen({ navigation }) {
     function clearInput() {
         onChangeName('');
         onChangeCity('');
-        onChangePeople('');
-        onChangeYearMin('');
-        onChangeYearMax('');
+        onChangePeople(4);
+        onChangeYearMin(18);
+        onChangeYearMax(18);
         setGenderTypeIndex(1);
         setGenderType('Homme');
         ref.current?.clear();
         setActivityIndex(0);
-        setActivityType('');
+        setActivityType('Bar');
     }
 
     const onChange = (event, selectedDate) => {
@@ -109,7 +110,7 @@ export default function FormScreen({ navigation }) {
     //     showMode('time');
     // };
 
-    const selectedValue = (index, item) => {
+    const selectedActivity = (index, item) => {
         setActivityIndex(index);
         setActivityType(item);
     };
@@ -117,43 +118,6 @@ export default function FormScreen({ navigation }) {
     const selectedGender = (index, item) => {
         setGenderTypeIndex(index);
         setGenderType(item);
-    };
-
-    const CustomPicker = ({ label, data, currentIndex, onSelected }) => {
-        return (
-            <View style={style.blockPicker}>
-                <Text>{label}</Text>
-                <View style={style.wrapperHorizontal}>
-                    <FlatList
-                        bounces
-                        horizontal
-                        data={data}
-                        keyExtractor={item => String(item)}
-                        renderItem={({ item, index }) => {
-                            const selected = index === currentIndex;
-                            return (
-                                <TouchableWithoutFeedback onPress={() => onSelected(index, item)}>
-                                    <View
-                                        style={[
-                                            style.itemStyleHorizontal,
-                                            selected && style.itemSelectedStyleHorizontal,
-                                        ]}>
-                                        <Text
-                                            style={{
-                                                textAlign: 'center',
-                                                color: selected ? 'black' : 'grey',
-                                                fontWeight: selected ? 'bold' : 'normal',
-                                            }}>
-                                            {item + ''}
-                                        </Text>
-                                    </View>
-                                </TouchableWithoutFeedback>
-                            );
-                        }}
-                    />
-                </View>
-            </View >
-        );
     };
 
     return (
@@ -182,7 +146,7 @@ export default function FormScreen({ navigation }) {
                     // label="Activité"
                     data={activityList}
                     currentIndex={activityIndex}
-                    onSelected={selectedValue}
+                    onSelected={selectedActivity}
                 />
                 <GooglePlacesAutocomplete
                     ref={ref}
@@ -228,7 +192,7 @@ export default function FormScreen({ navigation }) {
                         editable={false}
                     />
                     <Slider
-                        value={0}
+                        value={4}
                         minimumValue={4}
                         maximumValue={20}
                         step={1}

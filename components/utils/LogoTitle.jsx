@@ -3,12 +3,12 @@ import { Text, View } from 'react-native';
 import { useFonts } from 'expo-font';
 import { useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
-import style from '../Style';
+import style from '../../Style';
 
 export default function LogoTitle({ title }) {
 
     const [fontsLoaded] = useFonts({
-        'Shrikhand': require('../assets/fonts/Shrikhand.ttf'),
+        'Shrikhand': require('../../assets/fonts/Shrikhand.ttf'),
     });
 
     const onLayoutRootView = useCallback(async () => {
