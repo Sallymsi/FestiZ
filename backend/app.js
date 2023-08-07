@@ -1,9 +1,9 @@
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
-// const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post')
-const dbCon = require("./others/ConDb.js");
+// const dbCon = require("./others/ConDb.js");
 
 app.use(express.json());
 app.use(bodyParser.json());
@@ -31,7 +31,7 @@ app.use((req, res, next) => {
 // db.connect(function (err) {
 //     if (err) throw err;
 //     console.log("Connected!");
-//     var sql = "CREATE TABLE user (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), year VARCHAR(100), email VARCHAR(100), gender VARCHAR(100), pass VARCHAR(100))";
+//     var sql = "CREATE TABLE user (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(100), year VARCHAR(100), gender VARCHAR(100), email VARCHAR(100),  password VARCHAR(100))";
 //     db.query(sql, function (err, result) {
 //         if (err) throw err;
 //         console.log("Table created");
@@ -44,6 +44,6 @@ app.use((req, res, next) => {
 
 // // Initialisation des routes Post et Users :
 app.use('/api/post', postRoutes);
-// app.use('/api/auth', userRoutes);
+app.use('/api/auth', userRoutes);
 
 module.exports = app;
