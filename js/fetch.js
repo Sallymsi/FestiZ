@@ -11,17 +11,22 @@ export async function addParty(options, navigation) {
             console.log("Soirée ajouté à la BDD !");
         })
 
-    // .catch(function (error) {
-    //     console.log('There has been a problem with your fetch operation: ' + error.message);
-    //     throw error;
-    // })
+        .catch(function (error) {
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+            throw error;
+        })
 };
 
-// export function signin(options, navigation) {
-//     fetch(urlAddUser, options)
-//         .then(resp => resp.json())
+export async function signin(options, navigation) {
+    fetch(urlAddUser, options)
+        .then(resp => resp.json())
 
-//         .then(() => {
-//             console.log("User ajouté à la BDD !");
-//         })
-// };
+        .then(() => {
+            console.log("User ajouté à la BDD !");
+        })
+
+        .catch(function (error) {
+            console.log('There has been a problem with your fetch operation: ' + error.message);
+            throw error;
+        })
+};

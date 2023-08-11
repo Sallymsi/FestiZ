@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const dbCon = require("../others/ConDb");
 
 exports.setParty = (req, res, next) => {

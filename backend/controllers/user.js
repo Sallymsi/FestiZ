@@ -1,4 +1,3 @@
-const mysql = require('mysql');
 const bcrypt = require('bcrypt');
 const dbCon = require("../others/ConDb");
 
@@ -13,7 +12,7 @@ exports.signup = (req, res, next) => {
 
             const db = dbCon();
 
-            let sql = "INSERT INTO soiree (name, year, gender, email, password) VALUES (?, ?, ?, ?, ?)";
+            let sql = "INSERT INTO user (name, year, gender, email, password) VALUES (?, ?, ?, ?, ?)";
 
             db.connect(function (err) {
                 if (err) throw err;

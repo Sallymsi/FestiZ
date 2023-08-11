@@ -7,7 +7,7 @@ import { signin } from '../js/fetch';
 export default function SigninScreen({ navigation }) {
     const [name, onChangeName] = React.useState('');
     const [year, onChangeYear] = React.useState('');
-    const [genderTypeIndex, setGenderTypeIndex] = React.useState(1);
+    const [genderTypeIndex, setGenderTypeIndex] = React.useState(0);
     const [genderType, setGenderType] = React.useState('Homme');
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
@@ -42,7 +42,7 @@ export default function SigninScreen({ navigation }) {
         <SafeAreaView>
             <TextInput
                 style={style.input}
-                onChangetext={onChangeName}
+                onChangeText={onChangeName}
                 // value={name}
                 placeholder="Pseudo"
                 keyboardAppearance="dark"
@@ -50,7 +50,7 @@ export default function SigninScreen({ navigation }) {
             />
             <TextInput
                 style={style.input}
-                onChangetext={onChangeYear}
+                onChangeText={onChangeYear}
                 // value={year}
                 placeholder="Age"
                 keyboardAppearance="dark"
@@ -63,7 +63,7 @@ export default function SigninScreen({ navigation }) {
             />
             <TextInput
                 style={style.input}
-                onChangetext={onChangeEmail}
+                onChangeText={onChangeEmail}
                 // value={email}
                 placeholder="Email"
                 keyboardAppearance="dark"
@@ -71,7 +71,7 @@ export default function SigninScreen({ navigation }) {
             />
             <TextInput
                 style={style.input}
-                onChangetext={onChangePass}
+                onChangeText={onChangePass}
                 // value={pass}
                 placeholder="Mot de passe"
                 keyboardAppearance="dark"

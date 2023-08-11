@@ -25,6 +25,11 @@ export default function HomeScreen({ navigation }) {
             .then((data) => {
                 setParty(data);
             })
+
+            .catch(function (error) {
+                console.log('There has been a problem with your fetch operation: ' + error.message);
+                throw error;
+            })
     };
 
     const onRefresh = React.useCallback(() => {

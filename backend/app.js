@@ -3,7 +3,7 @@ const bodyParser = require('body-parser');
 const app = express();
 const userRoutes = require('./routes/user');
 const postRoutes = require('./routes/post')
-// const dbCon = require("./others/ConDb.js");
+const dbCon = require("./others/ConDb.js");
 
 app.use(express.json());
 app.use(bodyParser.json());

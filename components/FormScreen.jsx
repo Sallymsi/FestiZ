@@ -19,7 +19,7 @@ export default function FormScreen({ navigation }) {
     const [yearMin, onChangeYearMin] = React.useState(18);
     const [yearMax, onChangeYearMax] = React.useState(18);
     const [genderTypeIndex, setGenderTypeIndex] = React.useState(1);
-    const [genderType, setGenderType] = React.useState('Homme');
+    const [genderType, setGenderType] = React.useState('Mixte');
     const [activityIndex, setActivityIndex] = React.useState(0);
     const [activityType, setActivityType] = React.useState('');
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
@@ -93,7 +93,7 @@ export default function FormScreen({ navigation }) {
     }
 
     const onChange = (event, selectedDate) => {
-        setShow(false);
+        // setShow(false);
         setDate(selectedDate.toLocaleDateString());
     };
 
