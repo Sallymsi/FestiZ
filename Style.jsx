@@ -165,5 +165,9 @@ export default {
     },
     itemSelectedStyleHorizontal: {
         backgroundColor: '#01C38E',
+    },
+    // PROFIL
+    caseText: {
+        padding: 20,
     }
 }

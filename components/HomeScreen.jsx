@@ -4,7 +4,7 @@ import style from '../Style';
 import MapView, { Marker } from 'react-native-maps';
 
 export default function HomeScreen({ navigation }) {
-    const url = 'http://192.168.0.28:8080/api/post/get-party/';
+    const url = 'http://localhost:8080/api/post/get-party/';
     const [party, setParty] = React.useState([]);
     const [refreshing, setRefreshing] = React.useState(false);
 

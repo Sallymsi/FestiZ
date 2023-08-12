@@ -1,5 +1,5 @@
-const urlAddParty = 'http://192.168.0.28:8080/api/post/set-party/';
-const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
+const urlAddParty = 'http://localhost:8080/api/post/set-party/';
+const urlAddUser = 'http://localhost:8080/api/auth/signup/';
 
 // Requête POST pour les posts (party):
 export async function addParty(options, navigation) {

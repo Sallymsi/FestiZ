@@ -5,7 +5,7 @@ import { useCallback } from 'react';
 import * as SplashScreen from 'expo-splash-screen';
 import style from '../../Style';
 
-export default function LogoTitle({ title }) {
+export default function LogoTitle({ title, size }) {
 
     const [fontsLoaded] = useFonts({
         'Shrikhand': require('../../assets/fonts/Shrikhand.ttf'),
@@ -23,7 +23,7 @@ export default function LogoTitle({ title }) {
 
     return (
         <View style={style.container} onLayout={onLayoutRootView}>
-            <Text style={{ fontFamily: 'Shrikhand', fontSize: 35, color: '#01C38E', backgroundColor: '#fff' }}>{title}</Text>
+            <Text style={{ fontFamily: 'Shrikhand', fontSize: parseInt(size), color: '#01C38E', backgroundColor: '#fff' }}>{title}</Text>
         </View>
     );
 }

@@ -27,7 +27,7 @@ function BottomTabs({ navigation }) {
           tabBarIcon: () => (
             <Ionicons name="home" color="black" size={28} />
           ),
-          headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} />,
+          headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} size={35}/>,
           headerRight: () => (
             <Pressable onPress={() => navigation.navigate('Profil')}>
               <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
@@ -40,7 +40,7 @@ function BottomTabs({ navigation }) {
         name="Form"
         component={FormScreen}
         options={{
-          headerTitle: (props) => <LogoTitle {...props} title={"Party"} />,
+          headerTitle: (props) => <LogoTitle {...props} title={"Party"} size={35}/>,
           tabBarIcon: () => (
             <AntDesign name="pluscircleo" color="black" size={34} />
           ),
@@ -50,7 +50,7 @@ function BottomTabs({ navigation }) {
         name="Party"
         component={SigninScreen}
         options={{
-          headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
+          headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={35}/>,
           tabBarIcon: () => (
             <MaterialCommunityIcons name="party-popper" size={28} color="black" />
           ),
@@ -77,7 +77,7 @@ function App() {
           name="Profil"
           component={ProfilScreen}
           options={{
-            headerTitle: (props) => <LogoTitle {...props} title={"Profil"} />,
+            headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25}/>,
           }}
         />
       </Stack.Navigator>
