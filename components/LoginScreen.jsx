@@ -7,14 +7,13 @@ export default function FormScreen({ navigation }) {
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
 
-
     const form = {
         "email": email,
         "password": pass,
     };
 
     const options = {
-        method: "GET",
+        method: "POST",
         body: JSON.stringify(form),
         headers: { "Content-type": "application/json" }
     };
@@ -35,17 +34,13 @@ export default function FormScreen({ navigation }) {
                 // value={year}
                 placeholder="Mot de passe"
                 keyboardAppearance="dark"
-                maxLength={2}
+                maxLength={30}
             />
 
             <Button
                 color="#01C38E"
                 title="S'inscrire !"
-                onPress={() => login(options, navigation).then(() => {
-                    // clearInput();
-                    navigation.navigate('Home');
-                    alert('User enregistré !');
-                })}
+                onPress={() => login(options, navigation)}
             />
             <Button
                 color="#01C38E"

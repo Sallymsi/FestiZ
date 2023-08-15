@@ -1,6 +1,8 @@
-const urlAddParty = 'http://localhost:8080/api/post/set-party/';
-const urlAddUser = 'http://localhost:8080/api/auth/signup/';
-const urlLogUser = 'http://localhost:8080/api/auth/login/';
+const urlAddParty = 'http://192.168.0.28:8080/api/post/set-party/';
+const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
+const urlLogUser = 'http://192.168.0.28:8080/api/auth/login/';
+
+import * as SecureStore from 'expo-secure-store';
 
 // Requête POST pour les posts (party):
 export async function addParty(options, navigation) {
@@ -36,8 +38,15 @@ export function login(options, navigation) {
     fetch(urlLogUser, options)
         .then(resp => resp.json())
 
-        .then(() => {
-            console.log("User ajouté à la BDD !");
+        .then((data) => {
+            console.log(data);
+            if (data.token) {
+                SecureStore.setItemAsync('token', data.token)
+                    .then(response => console.log(response))
+                    .catch(err => console.log(err));
+            }
+            navigation.navigate('Home');
+            alert('Connected !');
         })
 
         .catch(function (error) {
