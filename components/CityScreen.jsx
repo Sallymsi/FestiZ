@@ -12,7 +12,7 @@ export default function CityScreen({ navigation }) {
     const [latitudeDelta, setLatitudeDelta] = React.useState(0.04);
     const [longitudeDelta, setLongitudeDelta] = React.useState(0.06);
 
-    Geocoder.init("AIzaSyAyrh2x7BkrzBN51rvf4kfS-U6OFNo1G-g", { language: "fr" });
+    Geocoder.init(Key(), { language: "fr" });
 
     async function PlaceId(placeId) {
         console.log(placeId);
