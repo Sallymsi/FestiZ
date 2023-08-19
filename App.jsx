@@ -80,17 +80,20 @@ function HomePack() {
 }
 
 function App() {
-  const [token, onChangeToken] = React.useState('');
+  const [token, onChangeToken] = React.useState(null);
   // save('userToken', 'hiudekzn6764huidb');
+  // deleteValueFor('userToken');
 
   React.useEffect(() => {
     const getTokenAsync = async () => {
       try {
         await SecureStore.getItemAsync('userToken').then((data) => {
           onChangeToken(data);
+          console.log(data);
         });
       } catch (e) {
-        onChangeToken(null);
+        // onChangeToken(null);
+        console.log(e);
       }
     };
 
