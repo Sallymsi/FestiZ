@@ -81,13 +81,14 @@ function HomePack() {
 
 function App() {
   const [token, onChangeToken] = React.useState('');
+  // save('userToken', 'hiudekzn6764huidb');
 
   React.useEffect(() => {
-    // Fetch the token from storage then navigate to our appropriate place
     const getTokenAsync = async () => {
       try {
-        let userToken = await SecureStore.getItemAsync('userToken');
-        onChangeToken(userToken);
+        await SecureStore.getItemAsync('userToken').then((data) => {
+          onChangeToken(data);
+        });
       } catch (e) {
         onChangeToken(null);
       }
