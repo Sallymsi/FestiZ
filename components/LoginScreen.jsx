@@ -3,7 +3,7 @@ import { Text, TextInput, Button, SafeAreaView } from 'react-native';
 import style from '../Style';
 import { login } from '../js/fetch';
 
-export default function FormScreen({ navigation }) {
+export default function LoginScreen({ navigation }) {
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
 

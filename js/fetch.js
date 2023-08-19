@@ -1,6 +1,6 @@
-const urlAddParty = 'http://192.168.0.28:8080/api/post/set-party/';
-const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
-const urlLogUser = 'http://192.168.0.28:8080/api/auth/login/';
+const urlAddParty = 'http://localhost:8080/api/post/set-party/';
+const urlAddUser = 'http://localhost:8080/api/auth/signup/';
+const urlLogUser = 'http://localhost:8080/api/auth/login/';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -41,11 +41,11 @@ export function login(options, navigation) {
         .then((data) => {
             console.log(data);
             if (data.token) {
-                SecureStore.setItemAsync('token', data.token)
+                SecureStore.setItemAsync('userToken', data.token)
                     .then(response => console.log(response))
                     .catch(err => console.log(err));
             }
-            navigation.navigate('Home');
+            navigation.navigate('HomePack');
             alert('Connected !');
         })
 
