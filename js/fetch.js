@@ -45,7 +45,7 @@ export function login(options, navigation) {
                     .then(response => console.log(response))
                     .catch(err => console.log(err));
             }
-            navigation.navigate('HomePack');
+            navigation.navigate('Home');
             alert('Connected !');
         })
 

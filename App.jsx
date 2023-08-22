@@ -15,7 +15,7 @@ import * as SplashScreen from 'expo-splash-screen';
 import * as SecureStore from 'expo-secure-store';
 import { save, getValueFor, deleteValueFor } from './js/secureStore';
 
-SplashScreen.preventAutoHideAsync();
+// SplashScreen.preventAutoHideAsync();
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -63,21 +63,23 @@ function BottomTabs({ navigation }) {
   );
 }
 
-function HomePack() {
-  return (
-    <Stack.Navigator options={{ headerShown: false }}>
-      <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
-      <Stack.Screen name="Home" component={HomeScreen} />
-      <Stack.Screen
-            name="Profil"
-            component={ProfilScreen}
-            options={{
-              headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
-            }}
-          />
-    </Stack.Navigator>
-  );
-}
+// const Stack2 = createNativeStackNavigator();
+
+// function HomePack() {
+//   return (
+//     <Stack2.Navigator>
+//       <Stack2.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
+//       <Stack2.Screen name="Home" component={HomeScreen} />
+//       <Stack2.Screen
+//             name="Profil"
+//             component={ProfilScreen}
+//             options={{
+//               headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
+//             }}
+//           />
+//     </Stack2.Navigator>
+//   );
+// }
 
 function App() {
   const [token, onChangeToken] = React.useState(null);
@@ -88,11 +90,12 @@ function App() {
     const getTokenAsync = async () => {
       try {
         await SecureStore.getItemAsync('userToken').then((data) => {
-          onChangeToken(data);
-          console.log(data);
+          if (data !== null) {
+            onChangeToken(data);
+            console.log(data);
+          }
         });
       } catch (e) {
-        // onChangeToken(null);
         console.log(e);
       }
     };
@@ -106,7 +109,17 @@ function App() {
         {token == null ? (
           <Stack.Screen name="Login" component={LoginScreen} />
         ) : (
-          <Stack.Screen name="HomePack" component={HomePack} options={{ headerShown: false }} />
+          <Stack.Group>
+            <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
+            <Stack.Screen name="Home" component={HomeScreen} />
+            <Stack.Screen
+              name="Profil"
+              component={ProfilScreen}
+              options={{
+                headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
+              }}
+            />
+          </Stack.Group>
         )}
       </Stack.Navigator>
     </NavigationContainer>
