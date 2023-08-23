@@ -14,8 +14,11 @@ import LogoTitle from './components/utils/LogoTitle.jsx';
 import * as SplashScreen from 'expo-splash-screen';
 import * as SecureStore from 'expo-secure-store';
 import { save, getValueFor, deleteValueFor } from './js/secureStore';
+import { login } from './js/fetch';
 
 // SplashScreen.preventAutoHideAsync();
+
+export const AuthContext = React.createContext();
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -63,66 +66,132 @@ function BottomTabs({ navigation }) {
   );
 }
 
-// const Stack2 = createNativeStackNavigator();
-
-// function HomePack() {
-//   return (
-//     <Stack2.Navigator>
-//       <Stack2.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
-//       <Stack2.Screen name="Home" component={HomeScreen} />
-//       <Stack2.Screen
-//             name="Profil"
-//             component={ProfilScreen}
-//             options={{
-//               headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
-//             }}
-//           />
-//     </Stack2.Navigator>
-//   );
-// }
-
 function App() {
-  const [token, onChangeToken] = React.useState(null);
-  // save('userToken', 'hiudekzn6764huidb');
-  // deleteValueFor('userToken');
+  const [state, dispatch] = React.useReducer(
+    (prevState, action) => {
+      switch (action.type) {
+        case 'RESTORE_TOKEN':
+          return {
+            ...prevState,
+            userToken: action.token,
+            isLoading: false,
+          };
+        case 'SIGN_IN':
+          return {
+            ...prevState,
+            isSignout: false,
+            userToken: action.token,
+          };
+        case 'SIGN_OUT':
+          return {
+            ...prevState,
+            isSignout: true,
+            userToken: null,
+          };
+      }
+    },
+    {
+      isLoading: true,
+      isSignout: false,
+      userToken: null,
+    }
+  );
 
   React.useEffect(() => {
+    // Fetch the token from storage then navigate to our appropriate place
     const getTokenAsync = async () => {
+      let userToken;
+
       try {
-        await SecureStore.getItemAsync('userToken').then((data) => {
-          if (data !== null) {
-            onChangeToken(data);
-            console.log(data);
-          }
-        });
+        userToken = await SecureStore.getItemAsync('userToken');
       } catch (e) {
-        console.log(e);
+        // Restoring token failed
+        console.log('Not token')
       }
+
+      // After restoring token, we may need to validate it in production apps
+
+      // This will switch to the App screen or Auth screen and this loading
+      // screen will be unmounted and thrown away.
+      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
     };
 
     getTokenAsync();
   }, []);
 
+  const authContext = React.useMemo(
+    () => ({
+      signIn: async (data) => {
+        // In a production app, we need to send some data (usually username, password) to server and get a token
+        // We will also need to handle errors if sign in failed
+        // After getting token, we need to persist the token using `SecureStore`
+        // In the example, we'll use a dummy token
+        console.log(data);
+
+        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+      },
+      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signUp: async (data) => {
+        // In a production app, we need to send user data to server and get a token
+        // We will also need to handle errors if sign up failed
+        // After getting token, we need to persist the token using `SecureStore`
+        // In the example, we'll use a dummy token
+
+        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+      },
+    }),
+    []
+  );
+
+  // const [token, onChangeToken] = React.useState(null);
+  // save('userToken', 'hiudekzn6764huidb');
+  // deleteValueFor('userToken');
+
+  // React.useEffect(() => {
+  //   const getTokenAsync = async () => {
+  //     try {
+  //       await SecureStore.getItemAsync('userToken').then((data) => {
+  //         if (data !== null) {
+  //           onChangeToken(data);
+  //           console.log(data);
+  //         }
+  //       });
+  //     } catch (e) {
+  //       console.log(e);
+  //     }
+  //   };
+
+  //   getTokenAsync();
+  // }, []);
+
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        {token == null ? (
-          <Stack.Screen name="Login" component={LoginScreen} />
-        ) : (
-          <Stack.Group>
-            <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
-            <Stack.Screen name="Home" component={HomeScreen} />
-            <Stack.Screen
-              name="Profil"
-              component={ProfilScreen}
+    <AuthContext.Provider value={authContext}>
+      <NavigationContainer>
+        <Stack.Navigator>
+          {state.userToken == null ? (
+            <Stack.Screen 
+              name="Login"
+              component={LoginScreen}
               options={{
-                headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
+                headerTitle: (props) => <LogoTitle {...props} title={"Login"} size={25} />,
               }}
-            />
-          </Stack.Group>
-        )}
-      </Stack.Navigator>
-    </NavigationContainer>
+              />
+          ) : (
+            <Stack.Group>
+              <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
+              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen
+                name="Profil"
+                component={ProfilScreen}
+                options={{
+                  headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
+                }}
+              />
+            </Stack.Group>
+          )}
+        </Stack.Navigator>
+      </NavigationContainer>
+    </AuthContext.Provider>
   );
 }
 
