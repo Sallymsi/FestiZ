@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { Text, TextInput, Button, SafeAreaView } from 'react-native';
 import style from '../Style';
-// import { login } from '../js/fetch';
 import { AuthContext } from '../App';
 
 export default function LoginScreen({ navigation }) {
@@ -26,7 +25,7 @@ export default function LoginScreen({ navigation }) {
             <TextInput
                 style={style.input}
                 onChangeText={onChangeEmail}
-                // value={name}
+                // value="Proto1998@gmail.com"
                 placeholder="Email"
                 keyboardAppearance="dark"
                 maxLength={30}
@@ -34,7 +33,7 @@ export default function LoginScreen({ navigation }) {
             <TextInput
                 style={style.input}
                 onChangeText={onChangePass}
-                // value={year}
+                // value="Peluche1998"
                 placeholder="Mot de passe"
                 keyboardAppearance="dark"
                 maxLength={30}

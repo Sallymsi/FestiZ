@@ -34,8 +34,8 @@ export async function signin(options, navigation) {
         })
 };
 
-export function login(options, navigation) {
-    fetch(urlLogUser, options)
+export async function login(options) {
+    return fetch(urlLogUser, options)
         .then(resp => resp.json())
 
         .then((data) => {
@@ -45,8 +45,7 @@ export function login(options, navigation) {
                     .then(response => console.log(response))
                     .catch(err => console.log(err));
             }
-            navigation.navigate('Home');
-            alert('Connected !');
+            return data.token;
         })
 
         .catch(function (error) {

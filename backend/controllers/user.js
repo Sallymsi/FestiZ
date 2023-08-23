@@ -29,10 +29,10 @@ exports.signup = (req, res, next) => {
 
 // Recherche si les identifiants sont correct et accorde un Token valable 24h afin de sécuriser la session de l'utilisateur :
 exports.login = (req, res, next) => {
-    let email = req.body.email;
-    let password = req.body.password;
+    let email = req.body.form.email;
+    let password = req.body.form.password;
     let sql = "SELECT * FROM  user WHERE email= ?";
-
+    
     const db = dbCon();
 
     db.connect(function (err) {
@@ -56,7 +56,7 @@ exports.login = (req, res, next) => {
                         )
                     });
                 })
-                .catch(error => res.status(500).json({ message: error }));
+                .catch(error => res.status(500).json({ message: 'erreur' + error }));
         });
     })
 };
