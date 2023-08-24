@@ -1,9 +1,9 @@
 import * as React from 'react';
-import { Text, TextInput, Button, SafeAreaView } from 'react-native';
+import { TextInput, Button, SafeAreaView } from 'react-native';
 import style from '../Style';
 import { AuthContext } from '../App';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen() {
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
 
@@ -14,18 +14,11 @@ export default function LoginScreen({ navigation }) {
         "password": pass,
     };
 
-    const options = {
-        method: "POST",
-        body: JSON.stringify(form),
-        headers: { "Content-type": "application/json" }
-    };
-
     return (
         <SafeAreaView>
             <TextInput
                 style={style.input}
                 onChangeText={onChangeEmail}
-                // value="Proto1998@gmail.com"
                 placeholder="Email"
                 keyboardAppearance="dark"
                 maxLength={30}
@@ -33,12 +26,10 @@ export default function LoginScreen({ navigation }) {
             <TextInput
                 style={style.input}
                 onChangeText={onChangePass}
-                // value="Peluche1998"
                 placeholder="Mot de passe"
                 keyboardAppearance="dark"
                 maxLength={30}
             />
-
             <Button
                 color="#01C38E"
                 title="S'inscrire !"

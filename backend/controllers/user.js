@@ -60,3 +60,19 @@ exports.login = (req, res, next) => {
         });
     })
 };
+
+exports.profil = (req, res, next) => {
+    let userId = req.params.userId;
+    let sql = "SELECT * FROM  user WHERE id= ?";
+
+    const db = dbCon();
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [userId], function (err, result) {
+            if (err) throw err;
+            res.status(201).json(result);
+        });
+    })
+
+};

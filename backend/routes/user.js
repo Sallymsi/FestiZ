@@ -8,7 +8,7 @@ const userCtrl = require('../controllers/user');
 router.post('/signup', userCtrl.signup);
 router.post('/login', userCtrl.login);
 // router.delete('/deleteUser', auth, userCtrl.deleteUser);
-// router.get('/getImgById/:userId', userCtrl.getImgById);
+router.get('/profil/:userId', userCtrl.profil);
 // router.get('/getAdmin', userCtrl.getAdmin);
 // router.post('/changeInfo', auth, multer, userCtrl.changeInfo);
 

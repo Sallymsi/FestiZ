@@ -33,7 +33,7 @@ function BottomTabs({ navigation }) {
           ),
           headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} size={35} />,
           headerRight: () => (
-            <Pressable onPress={() => navigation.navigate('Login')}>
+            <Pressable onPress={() => navigation.navigate('Profil')}>
               <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
             </Pressable>
 
@@ -52,7 +52,7 @@ function BottomTabs({ navigation }) {
       />
       <Tab.Screen
         name="Party"
-        component={SigninScreen}
+        component={ProfilScreen}
         options={{
           headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={35} />,
           tabBarIcon: () => (
@@ -72,6 +72,7 @@ function App() {
           return {
             ...prevState,
             userToken: action.token,
+            userId: action.userId,
             isLoading: false,
           };
         case 'SIGN_IN':
@@ -79,12 +80,14 @@ function App() {
             ...prevState,
             isSignout: false,
             userToken: action.token,
+            userId: action.userId,
           };
         case 'SIGN_OUT':
           return {
             ...prevState,
             isSignout: true,
             userToken: null,
+            userId: null,
           };
       }
     },
@@ -92,24 +95,30 @@ function App() {
       isLoading: true,
       isSignout: false,
       userToken: null,
+      userId: null,
     }
   );
 
-  // console.log('General : ' + state.userToken);
+  // console.log('General : ' + state.userId);
   // deleteValueFor('userToken');
+  // deleteValueFor('userId');
 
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const getTokenAsync = async () => {
-      let userToken;
+      let userToken;  
+      let userId;
 
       try {
         userToken = await SecureStore.getItemAsync('userToken');
+        userId = await SecureStore.getItemAsync('userId');
+        console.log('General : ' + userId);
+        console.log('General : ' + userToken);
       } catch (e) {
         console.log('Not token')
       }
-
-      dispatch({ type: 'RESTORE_TOKEN', token: userToken });
+      
+      dispatch({ type: 'RESTORE_TOKEN', token: userToken, userId: userId });
     };
 
     getTokenAsync();
@@ -126,8 +135,7 @@ function App() {
         };
 
         login(options).then((data) => {
-          dispatch({ type: 'SIGN_IN', token: data });
-          console.log('Token (signIn) : ' + data);
+          dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
           alert('Connected !');
         });
       },

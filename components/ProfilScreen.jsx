@@ -1,22 +1,62 @@
 import * as React from 'react';
 import { View, Text, Button } from 'react-native';
 import style from '../Style';
+import * as SecureStore from 'expo-secure-store';
+import { getProfil } from '../js/fetch';
+import { AuthContext } from '../App';
 
-export default function ProfilScreen({ navigation }) {
-    // const { city } = route.params;
+export default function ProfilScreen() {
+    let [email, changeEmail] = React.useState();
+    let [name, changeName] = React.useState();
+    let [gender, changeGender] = React.useState();
+    let [year, changeYear] = React.useState();
+
+    const { signOut } = React.useContext(AuthContext);
+
+    React.useEffect(() => {
+        // Fetch the token from storage then navigate to our appropriate place
+        const getUserIdAsync = async () => {
+          try {
+            await SecureStore.getItemAsync('userId').then((userId) => {
+                getProfil(userId).then((data) => {
+                    changeName(data[0].name);
+                    changeEmail(data[0].email);
+                    changeGender(data[0].gender);
+                    changeYear(data[0].year);
+                })
+            });
+          } catch (e) {
+            console.log('Not userId')
+          }
+
+        };
+    
+        getUserIdAsync();
+    }, []);
+
     return (
         <View style={style.container}>
             <View style={style.caseText}>
                 <Text>Image</Text>
             </View>
-            <View style={style.caseText}>
-                <Text>Pseudo</Text>
+             <View style={style.caseText}>
+                <Text>{name}</Text>
             </View>
             <View style={style.caseText}>
-                <Text>Ville</Text>
+                <Text>{year}</Text>
             </View>
             <View style={style.caseText}>
-                <Text>Age</Text>
+                <Text>{gender}</Text>
+            </View>
+            <View style={style.caseText}>
+                <Text>{email}</Text>
+            </View>
+            <View style={style.caseText}>
+            <Button
+                color="#01C38E"
+                title="Se déconnecter !"
+                onPress={() => signOut()}
+            />
             </View>
         </View>
     );
