@@ -16,6 +16,7 @@ import * as SecureStore from 'expo-secure-store';
 import { save, getValueFor, deleteValueFor } from './js/secureStore';
 import { login } from './js/fetch';
 
+
 export const AuthContext = React.createContext();
 
 const Tab = createBottomTabNavigator();
@@ -127,7 +128,7 @@ function App() {
   const authContext = React.useMemo(
     () => ({
       signIn: async (data) => {
-        
+
         const options = {
           method: "POST",
           body: JSON.stringify(data),
@@ -159,13 +160,13 @@ function App() {
           {state.isLoading ? (
             <Stack.Screen name="Splash" component={SplashScreen} />
           ) : state.userToken == null ? (
-            <Stack.Screen 
+            <Stack.Screen
               name="Login"
               component={LoginScreen}
               options={{
                 headerTitle: (props) => <LogoTitle {...props} title={"Login"} size={25} />,
               }}
-              />
+            />
           ) : (
             <Stack.Group>
               <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
