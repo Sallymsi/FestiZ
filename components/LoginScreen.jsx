@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { TextInput, Button, SafeAreaView } from 'react-native';
 import style from '../Style';
-import { AuthContext } from '../App';
+import { AuthContext } from '../src/App';
 
-export default function LoginScreen() {
+export default function LoginScreen({ navigation }) {
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
 
@@ -32,8 +32,13 @@ export default function LoginScreen() {
             />
             <Button
                 color="#01C38E"
+                title="Se connecter !"
+                onPress={() => signIn({ form })}
+            />
+            <Button
+                color="#01C38E"
                 title="S'inscrire !"
-                onPress={() => signIn({form})}
+                onPress={() => navigation.navigate('Signin')}
             />
             <Button
                 color="#01C38E"

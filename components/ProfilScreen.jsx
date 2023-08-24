@@ -1,9 +1,9 @@
 import * as React from 'react';
 import { View, Text, Button } from 'react-native';
-import style from '../Style';
+import style from '../src/App';
 import * as SecureStore from 'expo-secure-store';
 import { getProfil } from '../js/fetch';
-import { AuthContext } from '../App';
+import { AuthContext } from '../src/App';
 
 export default function ProfilScreen() {
     let [email, changeEmail] = React.useState();
@@ -16,21 +16,21 @@ export default function ProfilScreen() {
     React.useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
         const getUserIdAsync = async () => {
-          try {
-            await SecureStore.getItemAsync('userId').then((userId) => {
-                getProfil(userId).then((data) => {
-                    changeName(data[0].name);
-                    changeEmail(data[0].email);
-                    changeGender(data[0].gender);
-                    changeYear(data[0].year);
-                })
-            });
-          } catch (e) {
-            console.log('Not userId')
-          }
+            try {
+                await SecureStore.getItemAsync('userId').then((userId) => {
+                    getProfil(userId).then((data) => {
+                        changeName(data[0].name);
+                        changeEmail(data[0].email);
+                        changeGender(data[0].gender);
+                        changeYear(data[0].year);
+                    })
+                });
+            } catch (e) {
+                console.log('Not userId')
+            }
 
         };
-    
+
         getUserIdAsync();
     }, []);
 
@@ -39,7 +39,7 @@ export default function ProfilScreen() {
             <View style={style.caseText}>
                 <Text>Image</Text>
             </View>
-             <View style={style.caseText}>
+            <View style={style.caseText}>
                 <Text>{name}</Text>
             </View>
             <View style={style.caseText}>
@@ -52,11 +52,11 @@ export default function ProfilScreen() {
                 <Text>{email}</Text>
             </View>
             <View style={style.caseText}>
-            <Button
-                color="#01C38E"
-                title="Se déconnecter !"
-                onPress={() => signOut()}
-            />
+                <Button
+                    color="#01C38E"
+                    title="Se déconnecter !"
+                    onPress={() => signOut()}
+                />
             </View>
         </View>
     );

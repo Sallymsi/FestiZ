@@ -1,20 +1,20 @@
 import * as React from 'react';
 import { Pressable } from 'react-native';
-import style from './Style';
+import style from '../Style';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { Ionicons, AntDesign, MaterialCommunityIcons } from '@expo/vector-icons';
-import HomeScreen from './components/HomeScreen.jsx';
-import SigninScreen from './components/SigninScreen.jsx';
-import ProfilScreen from './components/ProfilScreen.jsx';
-import FormScreen from './components/FormScreen.jsx';
-import LoginScreen from './components/LoginScreen.jsx';
-import LogoTitle from './components/utils/LogoTitle.jsx';
-import SplashScreen from './components/utils/SplashScreen.jsx';
+import HomeScreen from '../components/HomeScreen.jsx';
+import SigninScreen from '../components/SigninScreen.jsx';
+import ProfilScreen from '../components/ProfilScreen.jsx';
+import FormScreen from '../components/FormScreen.jsx';
+import LoginScreen from '../components/LoginScreen.jsx';
+import LogoTitle from '../components/utils/LogoTitle.jsx';
+import SplashScreen from '../components/utils/SplashScreen.jsx';
 import * as SecureStore from 'expo-secure-store';
-import { save, getValueFor, deleteValueFor } from './js/secureStore';
-import { login } from './js/fetch';
+import { save, getValueFor, deleteValueFor } from '../js/secureStore';
+import { login, signup } from '../js/fetch';
 
 
 export const AuthContext = React.createContext();
@@ -65,7 +65,7 @@ function BottomTabs({ navigation }) {
   );
 }
 
-function App() {
+function App({ navigation }) {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -100,25 +100,28 @@ function App() {
     }
   );
 
-  // console.log('General : ' + state.userId);
+  console.log('General : ' + state.userId);
+  console.log('General : ' + state.userToken);
   // deleteValueFor('userToken');
   // deleteValueFor('userId');
 
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const getTokenAsync = async () => {
-      let userToken;  
+      let userToken;
       let userId;
 
       try {
         userToken = await SecureStore.getItemAsync('userToken');
         userId = await SecureStore.getItemAsync('userId');
-        console.log('General : ' + userId);
-        console.log('General : ' + userToken);
+        if (userToken && userId) {
+          console.log('General : ' + userId);
+          console.log('General : ' + userToken);
+        }
       } catch (e) {
         console.log('Not token')
       }
-      
+
       dispatch({ type: 'RESTORE_TOKEN', token: userToken, userId: userId });
     };
 
@@ -137,17 +140,31 @@ function App() {
 
         login(options).then((data) => {
           dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
-          alert('Connected !');
         });
       },
-      signOut: () => dispatch({ type: 'SIGN_OUT' }),
+      signOut: async () => {
+        deleteValueFor('userToken');
+        deleteValueFor('userId');
+        await SecureStore.getItemAsync('userToken');
+        await SecureStore.getItemAsync('userToken');
+        dispatch({ type: 'SIGN_OUT' });
+      },
       signUp: async (data) => {
-        // In a production app, we need to send user data to server and get a token
-        // We will also need to handle errors if sign up failed
-        // After getting token, we need to persist the token using `SecureStore`
-        // In the example, we'll use a dummy token
+        // console.log(data);
 
-        dispatch({ type: 'SIGN_IN', token: 'dummy-auth-token' });
+        const options = {
+          method: "POST",
+          body: JSON.stringify(data),
+          headers: { "Content-type": "application/json" }
+        };
+
+        signup(options).then((data) => {
+          console.log(data);
+          dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
+          if (data) {
+            alert('User enregistré !');
+          }
+        });
       },
     }),
     []
@@ -160,13 +177,23 @@ function App() {
           {state.isLoading ? (
             <Stack.Screen name="Splash" component={SplashScreen} />
           ) : state.userToken == null ? (
-            <Stack.Screen
-              name="Login"
-              component={LoginScreen}
-              options={{
-                headerTitle: (props) => <LogoTitle {...props} title={"Login"} size={25} />,
-              }}
-            />
+            <Stack.Group>
+              <Stack.Screen
+                name="Login"
+                component={LoginScreen}
+                options={{
+                  headerTitle: (props) => <LogoTitle {...props} title={"Se connecter"} size={25} />,
+                }}
+              />
+              <Stack.Screen
+                name="Signin"
+                component={SigninScreen}
+                options={{
+                  headerTitle: (props) => <LogoTitle {...props} title={"S'inscrire"} size={25} />,
+                  headerBackTitleVisible: false,
+                }}
+              />
+            </Stack.Group>
           ) : (
             <Stack.Group>
               <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />

@@ -1,12 +1,12 @@
-const urlAddParty = 'http://localhost:8080/api/post/set-party/';
-const urlAddUser = 'http://localhost:8080/api/auth/signup/';
-const urlLogUser = 'http://localhost:8080/api/auth/login/';
-const urlProfilUser = 'http://localhost:8080/api/auth/profil/';
+const urlAddParty = 'http://192.168.0.28:8080/api/post/set-party/';
+const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
+const urlLogUser = 'http://192.168.0.28:8080/api/auth/login/';
+const urlProfilUser = 'http://192.168.0.28:8080/api/auth/profil/';
 
 import * as SecureStore from 'expo-secure-store';
 
 // Requête POST pour les posts (party):
-export async function addParty(options, navigation) {
+export async function addParty(options) {
     fetch(urlAddParty, options)
         .then(resp => resp.json())
 
@@ -20,12 +20,22 @@ export async function addParty(options, navigation) {
         })
 };
 
-export async function signin(options, navigation) {
-    fetch(urlAddUser, options)
+export async function signup(options) {
+    return fetch(urlAddUser, options)
         .then(resp => resp.json())
 
-        .then(() => {
-            console.log("User ajouté à la BDD !");
+        .then(async (data) => {
+            if (data) {
+                console.log(data);
+                await SecureStore.setItemAsync('userToken', JSON.stringify(data.token));
+                await SecureStore.setItemAsync('userId', JSON.stringify(data.userId));
+                console.log('UserID (signIn) : ' + data.userId);
+                console.log('UserToken (signIn) : ' + data.userToken);
+                console.log("User ajouté à la BDD !");
+                return data;
+            } else {
+                console.log('Echec Fetching....')
+            }
         })
 
         .catch(function (error) {
@@ -38,13 +48,14 @@ export async function login(options) {
     return fetch(urlLogUser, options)
         .then(resp => resp.json())
 
-        .then( async (data) => {
+        .then(async (data) => {
             console.log(data);
             if (data.token) {
                 await SecureStore.setItemAsync('userToken', JSON.stringify(data.token));
                 await SecureStore.setItemAsync('userId', JSON.stringify(data.userId));
                 console.log('UserID (signIn) : ' + data.userId);
                 console.log('UserToken (signIn) : ' + data.userToken);
+                console.log("User connecté !");
             }
             return data;
         })
