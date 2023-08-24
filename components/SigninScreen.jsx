@@ -1,18 +1,15 @@
 import * as React from 'react';
 import { TextInput, Button, SafeAreaView } from 'react-native';
 import CustomPicker from './utils/CustomPicker';
-import { AuthContext } from '../src/App';
 import style from '../Style';
 
-export default function SigninScreen() {
+export default function SigninScreen({ authContext }) {
     const [name, onChangeName] = React.useState('');
     const [year, onChangeYear] = React.useState('');
     const [genderTypeIndex, setGenderTypeIndex] = React.useState(0);
     const [genderType, setGenderType] = React.useState('Homme');
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
-
-    const { signUp } = React.useContext(AuthContext);
 
     const genderList = [
         'Femme',
@@ -80,7 +77,7 @@ export default function SigninScreen() {
             <Button
                 color="#01C38E"
                 title="S'inscrire !"
-                onPress={() => signUp({ form })}
+                onPress={() => authContext.signUp({ form })}
             />
             {/* <Button
                 color="#01C38E"

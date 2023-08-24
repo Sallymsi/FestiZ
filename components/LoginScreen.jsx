@@ -1,13 +1,10 @@
 import * as React from 'react';
 import { TextInput, Button, SafeAreaView } from 'react-native';
 import style from '../Style';
-import { AuthContext } from '../src/App';
 
-export default function LoginScreen({ navigation }) {
+export default function LoginScreen({ authContext, navigation }) {
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
-
-    const { signIn } = React.useContext(AuthContext);
 
     const form = {
         "email": email,
@@ -33,7 +30,7 @@ export default function LoginScreen({ navigation }) {
             <Button
                 color="#01C38E"
                 title="Se connecter !"
-                onPress={() => signIn({ form })}
+                onPress={() => authContext.signIn({ form })}
             />
             <Button
                 color="#01C38E"

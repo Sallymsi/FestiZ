@@ -180,19 +180,21 @@ function App({ navigation }) {
             <Stack.Group>
               <Stack.Screen
                 name="Login"
-                component={LoginScreen}
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"Se connecter"} size={25} />,
                 }}
-              />
+              >
+                {(props) => <LoginScreen {...props} authContext={authContext} />}
+              </Stack.Screen>
               <Stack.Screen
                 name="Signin"
-                component={SigninScreen}
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"S'inscrire"} size={25} />,
                   headerBackTitleVisible: false,
                 }}
-              />
+              >
+                {(props) => <SigninScreen {...props} authContext={authContext} />}
+              </Stack.Screen>
             </Stack.Group>
           ) : (
             <Stack.Group>
@@ -200,11 +202,13 @@ function App({ navigation }) {
               <Stack.Screen name="Home" component={HomeScreen} />
               <Stack.Screen
                 name="Profil"
-                component={ProfilScreen}
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
+                  headerBackTitleVisible: false,
                 }}
-              />
+              >
+                {(props) => <ProfilScreen {...props} authContext={authContext} />}
+              </Stack.Screen>
             </Stack.Group>
           )}
         </Stack.Navigator>

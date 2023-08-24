@@ -1,17 +1,14 @@
 import * as React from 'react';
 import { View, Text, Button } from 'react-native';
-import style from '../src/App';
+import style from '../Style';
 import * as SecureStore from 'expo-secure-store';
 import { getProfil } from '../js/fetch';
-import { AuthContext } from '../src/App';
 
-export default function ProfilScreen() {
+export default function ProfilScreen({ authContext }) {
     let [email, changeEmail] = React.useState();
     let [name, changeName] = React.useState();
     let [gender, changeGender] = React.useState();
     let [year, changeYear] = React.useState();
-
-    const { signOut } = React.useContext(AuthContext);
 
     React.useEffect(() => {
         // Fetch the token from storage then navigate to our appropriate place
@@ -55,7 +52,7 @@ export default function ProfilScreen() {
                 <Button
                     color="#01C38E"
                     title="Se déconnecter !"
-                    onPress={() => signOut()}
+                    onPress={() => authContext.signOut()}
                 />
             </View>
         </View>
