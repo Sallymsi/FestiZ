@@ -42,3 +42,19 @@ exports.getParty = (req, res, next) => {
         });
     })
 };
+
+exports.getPartyUser = (req, res, next) => {
+    let userId = req.params.userId;
+
+    const db = dbCon();
+
+    let sql = "SELECT * FROM soiree WHERE userId= ?";
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [userId], function (err, result) {
+            if (err) throw err;
+            res.status(201).json(result);
+        });
+    })
+};

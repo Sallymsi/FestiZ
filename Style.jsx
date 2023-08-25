@@ -167,14 +167,15 @@ export default {
         backgroundColor: '#01C38E',
     },
     // PROFIL
-    
     caseText: {
         padding: 20,
     },
     caseParty: {
-        margin: 10,
+        // margin: 10,
         padding: 20,
-        backgroundColor: "#01C38E",
-
+        // height: 220,
     },
+    backgroundParty: {
+        backgroundColor: "#01C38E",
+    }
 }

@@ -21,18 +21,18 @@ export default function FormScreen({ userId, navigation }) {
     const [genderTypeIndex, setGenderTypeIndex] = React.useState(1);
     const [genderType, setGenderType] = React.useState('Mixte');
     const [activityIndex, setActivityIndex] = React.useState(0);
-    const [activityType, setActivityType] = React.useState('');
+    const [activityType, setActivityType] = React.useState('Bar');
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
-// 
+    // 
     // const [mode, setMode] = React.useState('date');
     // const [show, setShow] = React.useState(false);
 
     const ref = useRef();
 
     // console.log(userId);
-    
+
     const dateArray = date.split('/');
-    const newDate = dateArray[2] + '-' + dateArray[0]+ '-' + dateArray[1];
+    const newDate = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
 
     const activityList = [
         'Bar',
