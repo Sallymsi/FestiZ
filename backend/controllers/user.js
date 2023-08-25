@@ -4,14 +4,16 @@ const dbCon = require("../others/ConDb");
 
 // Enregistre un nouvel utilisateur dans la base de donnée :
 exports.signup = (req, res, next) => {
-    console.log(req.body.form);
+    console.log(req.body);
     bcrypt.hash(req.body.form.password, 10)
         .then(hash => {
             let name = req.body.form.name;
             let year = req.body.form.year;
             let gender = req.body.form.gender;
+            // let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
             let email = req.body.form.email;
             let password = hash;
+            console.log('hash : ' + password);
 
             const db = dbCon();
 
@@ -38,7 +40,7 @@ exports.signup = (req, res, next) => {
                 });
             })
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ message: error }));
 };
 
 // Recherche si les identifiants sont correct et accorde un Token valable 24h afin de sécuriser la session de l'utilisateur :

@@ -65,7 +65,7 @@ function BottomTabs({ navigation }) {
   );
 }
 
-function App({ navigation }) {
+function App() {
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -100,11 +100,6 @@ function App({ navigation }) {
     }
   );
 
-  console.log('General : ' + state.userId);
-  console.log('General : ' + state.userToken);
-  // deleteValueFor('userToken');
-  // deleteValueFor('userId');
-
   React.useEffect(() => {
     // Fetch the token from storage then navigate to our appropriate place
     const getTokenAsync = async () => {
@@ -114,12 +109,8 @@ function App({ navigation }) {
       try {
         userToken = await SecureStore.getItemAsync('userToken');
         userId = await SecureStore.getItemAsync('userId');
-        if (userToken && userId) {
-          console.log('General : ' + userId);
-          console.log('General : ' + userToken);
-        }
       } catch (e) {
-        console.log('Not token')
+        console.log('Problème au niveau de SecureStore');
       }
 
       dispatch({ type: 'RESTORE_TOKEN', token: userToken, userId: userId });
@@ -150,7 +141,8 @@ function App({ navigation }) {
         dispatch({ type: 'SIGN_OUT' });
       },
       signUp: async (data) => {
-        // console.log(data);
+        console.log('OK SignUp !');
+
 
         const options = {
           method: "POST",
@@ -158,8 +150,13 @@ function App({ navigation }) {
           headers: { "Content-type": "application/json" }
         };
 
+        // const options = {
+        //   method: "POST",
+        //   body: data,
+        //   headers: { 'Content-type': 'multipart/form-data' }
+        // };
+
         signup(options).then((data) => {
-          console.log(data);
           dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
           if (data) {
             alert('User enregistré !');

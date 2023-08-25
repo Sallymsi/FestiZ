@@ -26,11 +26,8 @@ export async function signup(options) {
 
         .then(async (data) => {
             if (data) {
-                console.log(data);
                 await SecureStore.setItemAsync('userToken', JSON.stringify(data.token));
                 await SecureStore.setItemAsync('userId', JSON.stringify(data.userId));
-                console.log('UserID (signIn) : ' + data.userId);
-                console.log('UserToken (signIn) : ' + data.userToken);
                 console.log("User ajouté à la BDD !");
                 return data;
             } else {
@@ -49,12 +46,9 @@ export async function login(options) {
         .then(resp => resp.json())
 
         .then(async (data) => {
-            console.log(data);
             if (data.token) {
                 await SecureStore.setItemAsync('userToken', JSON.stringify(data.token));
                 await SecureStore.setItemAsync('userId', JSON.stringify(data.userId));
-                console.log('UserID (signIn) : ' + data.userId);
-                console.log('UserToken (signIn) : ' + data.userToken);
                 console.log("User connecté !");
             }
             return data;

@@ -1,6 +1,7 @@
 import * as React from 'react';
-import { TextInput, Button, SafeAreaView } from 'react-native';
+import { TextInput, Button, SafeAreaView, View } from 'react-native';
 import CustomPicker from './utils/CustomPicker';
+import PickerImage from './utils/PickerImage';
 import style from '../Style';
 
 export default function SigninScreen({ authContext }) {
@@ -10,11 +11,33 @@ export default function SigninScreen({ authContext }) {
     const [genderType, setGenderType] = React.useState('Homme');
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
+    const [image, setImage] = React.useState(null);
+    // const [file, setFile] = React.useState(null);
 
     const genderList = [
         'Femme',
         'Homme',
     ];
+
+    // function handleClick(e) {
+    //     const formData = new FormData();
+    //     formData.append('name', name);
+    //     formData.append('year', year);
+    //     formData.append('gender', genderType);
+    //     formData.append('email', email);
+    //     formData.append('password', pass);
+    //     formData.append('image', image);
+    //     e.preventDefault();
+    //     // formData.append('image', {
+    //     //     uri: image,
+    //     //     filename: filename,
+    //     //     type: typeImage,
+    //     // });
+
+    //     authContext.signUp(formData);
+    //     console.table(formData);
+    // }
+
 
     const form = {
         "name": name,
@@ -66,24 +89,16 @@ export default function SigninScreen({ authContext }) {
                 keyboardAppearance="dark"
                 maxLength={30}
             />
-            {/* <TextInput
-                style={style.input}
-                onChangetext={onChangePassVerif}
-                value={passVerif}
-                placeholder="veuillez répéter"
-                keyboardAppearance="dark"
-                maxLength={30}
+            {/* <PickerImage
+                image={image}
+                setImage={setImage}
+                setFile={setFile}
             /> */}
             <Button
                 color="#01C38E"
                 title="S'inscrire !"
                 onPress={() => authContext.signUp({ form })}
             />
-            {/* <Button
-                color="#01C38E"
-                title="Form !"
-                onPress={() => console.log(form)}
-            /> */}
         </SafeAreaView>
     );
 };

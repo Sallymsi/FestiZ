@@ -25,9 +25,7 @@ export default function ProfilScreen({ authContext }) {
             } catch (e) {
                 console.log('Not userId')
             }
-
         };
-
         getUserIdAsync();
     }, []);
 
