@@ -1,6 +1,7 @@
 const dbCon = require("../others/ConDb");
 
 exports.setParty = (req, res, next) => {
+    let userId = req.body.userId;
     let name = req.body.name;
     let city = req.body.city;
     let activity = req.body.activity;
@@ -15,11 +16,11 @@ exports.setParty = (req, res, next) => {
 
     const db = dbCon();
 
-    let sql = "INSERT INTO soiree (name, city, activity, address, lat, lng, date, people, minYear, maxYear, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    let sql = "INSERT INTO soiree (userId, name, city, activity, address, lat, lng, date, people, minYear, maxYear, gender) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
     db.connect(function (err) {
         if (err) throw err;
-        db.query(sql, [name, city, activity, address, lat, lng, date, people, minYear, maxYear, gender], function (err, result) {
+        db.query(sql, [userId, name, city, activity, address, lat, lng, date, people, minYear, maxYear, gender], function (err, result) {
             if (err) throw err;
             res.status(201).json({ status: 'success', message: "Soirée ajouté à la BDD !" });
         });

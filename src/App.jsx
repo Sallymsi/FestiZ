@@ -22,50 +22,8 @@ export const AuthContext = React.createContext();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
-function BottomTabs({ navigation }) {
-  return (
-    <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
-      <Tab.Screen
-        name="Home"
-        component={HomeScreen}
-        options={{
-          tabBarIcon: () => (
-            <Ionicons name="home" color="black" size={28} />
-          ),
-          headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} size={35} />,
-          headerRight: () => (
-            <Pressable onPress={() => navigation.navigate('Profil')}>
-              <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
-            </Pressable>
-
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Form"
-        component={FormScreen}
-        options={{
-          headerTitle: (props) => <LogoTitle {...props} title={"Party"} size={35} />,
-          tabBarIcon: () => (
-            <AntDesign name="pluscircleo" color="black" size={34} />
-          ),
-        }}
-      />
-      <Tab.Screen
-        name="Party"
-        component={ProfilScreen}
-        options={{
-          headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={35} />,
-          tabBarIcon: () => (
-            <MaterialCommunityIcons name="party-popper" size={28} color="black" />
-          ),
-        }}
-      />
-    </Tab.Navigator>
-  );
-}
-
 function App() {
+  const [userId, changeUserId] = React.useState(null);
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -109,6 +67,7 @@ function App() {
       try {
         userToken = await SecureStore.getItemAsync('userToken');
         userId = await SecureStore.getItemAsync('userId');
+        changeUserId(userId);
       } catch (e) {
         console.log('Problème au niveau de SecureStore');
       }
@@ -141,20 +100,12 @@ function App() {
         dispatch({ type: 'SIGN_OUT' });
       },
       signUp: async (data) => {
-        console.log('OK SignUp !');
-
 
         const options = {
           method: "POST",
           body: JSON.stringify(data),
           headers: { "Content-type": "application/json" }
         };
-
-        // const options = {
-        //   method: "POST",
-        //   body: data,
-        //   headers: { 'Content-type': 'multipart/form-data' }
-        // };
 
         signup(options).then((data) => {
           dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
@@ -166,6 +117,60 @@ function App() {
     }),
     []
   );
+
+  function BottomTabs({ navigation }) {
+    return (
+        <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
+          <Tab.Screen
+            name="Home"
+            component={HomeScreen}
+            options={{
+              tabBarIcon: () => (
+                <Ionicons name="home" color="black" size={28} />
+              ),
+              headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} size={35} />,
+              headerRight: () => (
+                <Pressable onPress={() => navigation.navigate('Profil')}>
+                  <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
+                </Pressable>
+  
+              ),
+            }}
+          />
+          {/* <Tab.Screen
+            name="Form"
+            component={FormScreen}
+            options={{
+              headerTitle: (props) => <LogoTitle {...props} title={"Party"} size={35} />,
+              tabBarIcon: () => (
+                <AntDesign name="pluscircleo" color="black" size={34} />
+              ),
+            }}
+          /> */}
+          <Tab.Screen
+            name="Form"
+            options={{
+              headerTitle: (props) => <LogoTitle {...props} title={"Party"} size={35} />,
+              tabBarIcon: () => (
+                <AntDesign name="pluscircleo" color="black" size={34} />
+              ),
+            }}
+          >
+            {(props) => <FormScreen {...props} userId={userId} />}
+          </Tab.Screen>
+          <Tab.Screen
+            name="Party"
+            component={ProfilScreen}
+            options={{
+              headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={35} />,
+              tabBarIcon: () => (
+                <MaterialCommunityIcons name="party-popper" size={28} color="black" />
+              ),
+            }}
+          />
+        </Tab.Navigator>
+    );
+  }
 
   return (
     <AuthContext.Provider value={authContext}>

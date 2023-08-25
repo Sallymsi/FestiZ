@@ -7,13 +7,15 @@ const MIME_TYPES = {
     'image/png': 'png'
 };
 
-console.log('OK');
+console.log('Multer 1');
 // Configuration de Multer pour les images de profil utilisateur :
 const storage = multer.diskStorage({
     destination: (req, file, callback) => {
+        console.log('Multer 3');
         callback(null, 'images');
     },
     filename: (req, file, callback) => {
+        console.log('Multer 3');
         const name = file.originalname.split(' ').join('_');
         const extension = MIME_TYPES[file.mimetype];
         callback(null, name + Date.now() + '.' + extension);

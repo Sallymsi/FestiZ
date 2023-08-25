@@ -32,7 +32,10 @@ export default function ProfilScreen({ authContext }) {
     return (
         <View style={style.container}>
             <View style={style.caseText}>
-                <Text>Image</Text>
+                <Button 
+                    title="Choisir une photo !"
+                    color="#01C38E"
+                />
             </View>
             <View style={style.caseText}>
                 <Text>{name}</Text>
@@ -45,6 +48,9 @@ export default function ProfilScreen({ authContext }) {
             </View>
             <View style={style.caseText}>
                 <Text>{email}</Text>
+            </View>
+            <View style={style.caseParty}>
+                <Text>Aucune Party de prévu ..</Text>
             </View>
             <View style={style.caseText}>
                 <Button

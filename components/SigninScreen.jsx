@@ -1,7 +1,7 @@
 import * as React from 'react';
-import { TextInput, Button, SafeAreaView, View } from 'react-native';
+import { TextInput, Button, SafeAreaView } from 'react-native';
 import CustomPicker from './utils/CustomPicker';
-import PickerImage from './utils/PickerImage';
+// import PickerImage from './utils/PickerImage';
 import style from '../Style';
 
 export default function SigninScreen({ authContext }) {
@@ -11,7 +11,7 @@ export default function SigninScreen({ authContext }) {
     const [genderType, setGenderType] = React.useState('Homme');
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
-    const [image, setImage] = React.useState(null);
+    // const [image, setImage] = React.useState(null);
     // const [file, setFile] = React.useState(null);
 
     const genderList = [
@@ -26,7 +26,7 @@ export default function SigninScreen({ authContext }) {
     //     formData.append('gender', genderType);
     //     formData.append('email', email);
     //     formData.append('password', pass);
-    //     formData.append('image', image);
+    //     formData.append('image', file);
     //     e.preventDefault();
     //     // formData.append('image', {
     //     //     uri: image,
@@ -34,8 +34,8 @@ export default function SigninScreen({ authContext }) {
     //     //     type: typeImage,
     //     // });
 
-    //     authContext.signUp(formData);
-    //     console.table(formData);
+    //     authContext.signUp({ formData });
+    //     // console.log("test" + formData);
     // }
 
 

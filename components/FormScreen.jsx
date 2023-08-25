@@ -9,7 +9,7 @@ import Geocoder from 'react-native-geocoding';
 import { addParty } from '../js/fetch';
 import { Slider } from '@react-native-assets/slider';
 
-export default function FormScreen({ navigation }) {
+export default function FormScreen({ userId, navigation }) {
     const [name, onChangeName] = React.useState('');
     const [city, onChangeCity] = React.useState('');
     const [address, onChangeAddress] = React.useState('');
@@ -23,13 +23,16 @@ export default function FormScreen({ navigation }) {
     const [activityIndex, setActivityIndex] = React.useState(0);
     const [activityType, setActivityType] = React.useState('');
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
+// 
     // const [mode, setMode] = React.useState('date');
     // const [show, setShow] = React.useState(false);
 
     const ref = useRef();
 
+    // console.log(userId);
+    
     const dateArray = date.split('/');
-    const newDate = dateArray[2] + '/' + dateArray[1] + '/' + dateArray[0];
+    const newDate = dateArray[2] + '-' + dateArray[0]+ '-' + dateArray[1];
 
     const activityList = [
         'Bar',
@@ -60,6 +63,7 @@ export default function FormScreen({ navigation }) {
     };
 
     const form = {
+        "userId": userId,
         "name": name,
         "city": city,
         'activity': activityType,
@@ -252,7 +256,11 @@ export default function FormScreen({ navigation }) {
                     clearInput();
                     navigation.navigate('Home');
                     alert('Soirée enregistrée !');
-                })}></Button>
+                })} />
+                <Button
+                    title="Form"
+                    onPress={() => console.log(form)}
+                />
             </ScrollView>
         </SafeAreaView >
     );
