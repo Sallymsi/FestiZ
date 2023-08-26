@@ -23,13 +23,8 @@ export default function FormScreen({ userId, navigation }) {
     const [activityIndex, setActivityIndex] = React.useState(0);
     const [activityType, setActivityType] = React.useState('Bar');
     const [date, setDate] = React.useState(new Date().toLocaleDateString());
-    // 
-    // const [mode, setMode] = React.useState('date');
-    // const [show, setShow] = React.useState(false);
-
     const ref = useRef();
 
-    // console.log(userId);
 
     const dateArray = date.split('/');
     const newDate = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
@@ -39,12 +34,6 @@ export default function FormScreen({ userId, navigation }) {
         'Restaurant',
         'Pique-nique',
         'Billard',
-    ];
-
-    const genderList = [
-        'Femme',
-        'Mixte',
-        'Homme',
     ];
 
     Geocoder.init(Key(), { language: "fr" });
@@ -135,7 +124,7 @@ export default function FormScreen({ userId, navigation }) {
                     onChangeText={onChangeName}
                     value={name}
                     placeholder='Nom de la soirée'
-                    keyboardAppearance="dark"
+                    selectionColor={'#01C38E'}
                     maxLength={30}
                 />
                 <TextInput
@@ -143,11 +132,10 @@ export default function FormScreen({ userId, navigation }) {
                     onChangeText={onChangeCity}
                     value={city}
                     placeholder='Ville'
-                    keyboardAppearance="dark"
+                    selectionColor={'#01C38E'}
                     maxLength={30}
                 />
                 <CustomPicker
-                    // label="Activité"
                     data={activityList}
                     currentIndex={activityIndex}
                     onSelected={selectedActivity}
@@ -228,7 +216,6 @@ export default function FormScreen({ userId, navigation }) {
                 </View>
                 <View style={style.containsRow}>
                     <TextInput
-                        inputMode="numeric"
                         value={yearMax.toString()}
                         returnKeyType={'done'}
                         style={style.inputSlider}
@@ -248,19 +235,19 @@ export default function FormScreen({ userId, navigation }) {
                 </View>
                 <Text style={style.picker}>Soirée {genderType}</Text>
                 <CustomPicker
-                    data={genderList}
+                    data={['Femme', 'Mixte', 'Homme']}
                     currentIndex={genderTypeIndex}
                     onSelected={selectedGender}
                 />
-                <Button color="#01C38E" title="Envoyer" onPress={() => addParty(options, navigation).then(() => {
+                <Button color="#01C38E" title="C'est Party !" onPress={() => addParty(options, navigation).then(() => {
                     clearInput();
                     navigation.navigate('Home');
                     alert('Soirée enregistrée !');
                 })} />
-                <Button
+                {/* <Button
                     title="Form"
                     onPress={() => console.log(form)}
-                />
+                /> */}
             </ScrollView>
         </SafeAreaView >
     );

@@ -17,14 +17,16 @@ export default function LoginScreen({ authContext, navigation }) {
                 style={style.input}
                 onChangeText={onChangeEmail}
                 placeholder="Email"
-                keyboardAppearance="dark"
-                maxLength={30}
+                autoComplete='email'
+                selectionColor={'#01C38E'}
+                maxLength={40}
             />
             <TextInput
                 style={style.input}
                 onChangeText={onChangePass}
                 placeholder="Mot de passe"
-                keyboardAppearance="dark"
+                secureTextEntry={true}
+                selectionColor={'#01C38E'}
                 maxLength={30}
             />
             <Button
@@ -36,11 +38,6 @@ export default function LoginScreen({ authContext, navigation }) {
                 color="#01C38E"
                 title="S'inscrire !"
                 onPress={() => navigation.navigate('Signin')}
-            />
-            <Button
-                color="#01C38E"
-                title="Form !"
-                onPress={() => console.log(form)}
             />
         </SafeAreaView>
     );

@@ -27,7 +27,7 @@ export default function HomeScreen({ navigation }) {
             })
 
             .catch(function (error) {
-                console.log('There has been a problem with your fetch operation: ' + error.message);
+                console.log('There has been a problem with your fetch operation (getParty): ' + error.message);
                 throw error;
             })
     };

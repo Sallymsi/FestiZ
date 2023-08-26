@@ -1,7 +1,6 @@
 import * as React from 'react';
 import { TextInput, Button, SafeAreaView } from 'react-native';
 import CustomPicker from './utils/CustomPicker';
-// import PickerImage from './utils/PickerImage';
 import style from '../Style';
 
 export default function SigninScreen({ authContext }) {
@@ -11,33 +10,6 @@ export default function SigninScreen({ authContext }) {
     const [genderType, setGenderType] = React.useState('Homme');
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
-    // const [image, setImage] = React.useState(null);
-    // const [file, setFile] = React.useState(null);
-
-    const genderList = [
-        'Femme',
-        'Homme',
-    ];
-
-    // function handleClick(e) {
-    //     const formData = new FormData();
-    //     formData.append('name', name);
-    //     formData.append('year', year);
-    //     formData.append('gender', genderType);
-    //     formData.append('email', email);
-    //     formData.append('password', pass);
-    //     formData.append('image', file);
-    //     e.preventDefault();
-    //     // formData.append('image', {
-    //     //     uri: image,
-    //     //     filename: filename,
-    //     //     type: typeImage,
-    //     // });
-
-    //     authContext.signUp({ formData });
-    //     // console.log("test" + formData);
-    // }
-
 
     const form = {
         "name": name,
@@ -57,43 +29,39 @@ export default function SigninScreen({ authContext }) {
             <TextInput
                 style={style.input}
                 onChangeText={onChangeName}
+                selectionColor={'#01C38E'}
                 placeholder="Pseudo"
-                keyboardAppearance="dark"
                 maxLength={30}
             />
             <TextInput
                 style={style.input}
                 onChangeText={onChangeYear}
                 placeholder="Age"
-                keyboardAppearance="dark"
+                selectionColor={'#01C38E'}
+                keyboardType="number-pad"
                 maxLength={2}
             />
             <CustomPicker
-                data={genderList}
+                data={["Homme", "Femme"]}
                 currentIndex={genderTypeIndex}
                 onSelected={selectedGender}
             />
             <TextInput
                 style={style.input}
                 onChangeText={onChangeEmail}
-                // value={email}
+                selectionColor={'#01C38E'}
                 placeholder="Email"
-                keyboardAppearance="dark"
+                keyboardType="email-address"
                 maxLength={50}
             />
             <TextInput
                 style={style.input}
                 onChangeText={onChangePass}
-                // value={pass}
+                selectionColor={'#01C38E'}
                 placeholder="Mot de passe"
-                keyboardAppearance="dark"
+                secureTextEntry={true}
                 maxLength={30}
             />
-            {/* <PickerImage
-                image={image}
-                setImage={setImage}
-                setFile={setFile}
-            /> */}
             <Button
                 color="#01C38E"
                 title="S'inscrire !"

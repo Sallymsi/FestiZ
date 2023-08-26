@@ -15,7 +15,7 @@ export async function addParty(options) {
         })
 
         .catch(function (error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
+            console.log('There has been a problem with your fetch operation (addParty): ' + error.message);
             throw error;
         })
 };
@@ -36,7 +36,7 @@ export async function signup(options) {
         })
 
         .catch(function (error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
+            console.log('There has been a problem with your fetch operation (signup): ' + error.message);
             throw error;
         })
 };
@@ -55,7 +55,7 @@ export async function login(options) {
         })
 
         .catch(function (error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
+            console.log('There has been a problem with your fetch operation (login): ' + error.message);
             throw error;
         })
 };
@@ -69,7 +69,7 @@ export async function getProfil(userId) {
         })
 
         .catch(function (error) {
-            console.log('There has been a problem with your fetch operation: ' + error.message);
+            console.log('There has been a problem with your fetch operation (getProfil): ' + error.message);
             throw error;
         })
 };

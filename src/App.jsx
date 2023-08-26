@@ -13,12 +13,10 @@ import LoginScreen from '../components/LoginScreen.jsx';
 import LogoTitle from '../components/utils/LogoTitle.jsx';
 import SplashScreen from '../components/utils/SplashScreen.jsx';
 import * as SecureStore from 'expo-secure-store';
-import { save, getValueFor, deleteValueFor } from '../js/secureStore';
+import { deleteValueFor } from '../js/secureStore';
 import { login, signup } from '../js/fetch';
 
-
-export const AuthContext = React.createContext();
-
+const AuthContext = React.createContext();
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -139,16 +137,6 @@ function App() {
             ),
           }}
         />
-        {/* <Tab.Screen
-            name="Form"
-            component={FormScreen}
-            options={{
-              headerTitle: (props) => <LogoTitle {...props} title={"Party"} size={35} />,
-              tabBarIcon: () => (
-                <AntDesign name="pluscircleo" color="black" size={34} />
-              ),
-            }}
-          /> */}
         <Tab.Screen
           name="Form"
           options={{
@@ -209,6 +197,7 @@ function App() {
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
                   headerBackTitleVisible: false,
+                  animation: "fade",
                 }}
               >
                 {(props) => <ProfilScreen {...props} authContext={authContext} userId={userId} />}

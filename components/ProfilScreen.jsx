@@ -38,11 +38,10 @@ export default function ProfilScreen({ authContext, userId }) {
 
             .then((data) => {
                 changeParty(data);
-                console.log(data);
             })
 
             .catch(function (error) {
-                console.log('There has been a problem with your fetch operation: ' + error.message);
+                console.log('There has been a problem with your fetch operation (getPartyUser): ' + error.message);
                 throw error;
             })
     };

@@ -3,6 +3,8 @@ export default {
     container: {
         flex: 1,
         backgroundColor: '#ecf0f1',
+        padding: 0,
+        margin: 0,
     },
     // HOMESCREEN
     iconProfil: {
@@ -171,8 +173,8 @@ export default {
         padding: 20,
     },
     caseParty: {
-        // margin: 10,
-        padding: 20,
+        margin: 0,
+        padding: 0,
         // height: 220,
     },
     backgroundParty: {
