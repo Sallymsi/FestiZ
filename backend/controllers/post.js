@@ -32,7 +32,7 @@ exports.getParty = (req, res, next) => {
 
     const db = dbCon();
 
-    let sql = "SELECT name, city, activity, address, lat, lng, date, people, minYear, maxyear, gender FROM soiree";
+    let sql = "SELECT id, userId, name, city, activity, address, lat, lng, date, people, minYear, maxyear, gender FROM soiree";
 
     db.connect(function (err) {
         if (err) throw err;
@@ -42,6 +42,7 @@ exports.getParty = (req, res, next) => {
         });
     })
 };
+
 
 exports.getPartyUser = (req, res, next) => {
     let userId = req.params.userId;

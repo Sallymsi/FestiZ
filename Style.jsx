@@ -55,25 +55,26 @@ export default {
     itemTextUnit: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 15,
+        fontSize: 14,
+        paddingTop: 4,
     },
     itemTextUnitCity: {
         color: '#fff',
         fontWeight: 'normal',
         fontSize: 12,
-        paddingTop: 4,
+        paddingTop: 2,
         paddingBottom: 4,
     },
     itemTextUnitAddress: {
         color: '#fff',
-        fontWeight: 'bold',
-        fontSize: 10,
+        fontWeight: 'normal',
+        fontSize: 11,
     },
     itemTextUnitPeople: {
         color: '#fff',
-        fontWeight: 'normal',
+        fontWeight: 'bold',
         fontSize: 13,
-        paddingTop: 8,
+        paddingTop: 6,
     },
     itemInfo: {
         flex: 0.5,
@@ -175,7 +176,7 @@ export default {
     caseParty: {
         margin: 0,
         padding: 0,
-        // height: 220,
+        // height: '50%',
     },
     backgroundParty: {
         backgroundColor: "#01C38E",

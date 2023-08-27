@@ -1,7 +1,7 @@
-const urlAddParty = 'http://192.168.0.28:8080/api/post/set-party/';
-const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
-const urlLogUser = 'http://192.168.0.28:8080/api/auth/login/';
-const urlProfilUser = 'http://192.168.0.28:8080/api/auth/profil/';
+const urlAddParty = 'http://localhost:8080/api/post/set-party/';
+const urlAddUser = 'http://localhost:8080/api/auth/signup/';
+const urlLogUser = 'http://localhost:8080/api/auth/login/';
+const urlProfilUser = 'http://localhost:8080/api/auth/profil/';
 
 import * as SecureStore from 'expo-secure-store';
 

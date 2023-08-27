@@ -1,63 +1,46 @@
 import * as React from 'react';
-import { Text, SafeAreaView, ScrollView, View, Image, Pressable, RefreshControl } from 'react-native';
+import { View, Text, Pressable, Image, ScrollView } from 'react-native';
 import style from '../Style';
 import MapView, { Marker } from 'react-native-maps';
 
-export default function HomeScreen({ navigation }) {
-    const url = 'http://localhost:8080/api/post/get-party/';
-    const [party, setParty] = React.useState([]);
-    const [refreshing, setRefreshing] = React.useState(false);
+export default function PartyScreen({ userId }) {
+    const urlPartyUser = 'http://localhost:8080/api/post/party-user/';
+    let [party, changeParty] = React.useState([]);
 
     React.useEffect(() => {
-        getParty(options)
+        getPartyUser(userId);
     }, []);
 
-    const options = {
-        method: "GET",
-        headers: { "Content-type": "application/json" }
-    };
-
-    // Requête GET de récupération des party :
-    async function getParty(options) {
-        fetch(url, options)
+    async function getPartyUser(userId) {
+        fetch(urlPartyUser + userId)
             .then(resp => resp.json())
 
             .then((data) => {
-                setParty(data);
+                changeParty(data);
             })
 
             .catch(function (error) {
-                console.log('There has been a problem with your fetch operation (getParty): ' + error.message);
+                console.log('There has been a problem with your fetch operation (getPartyUser): ' + error.message);
                 throw error;
             })
     };
 
-    const onRefresh = React.useCallback(() => {
-        setRefreshing(true);
-        getParty(options);
-        setTimeout(() => {
-            setRefreshing(false);
-        }, 2000);
-    }, []);
-
     return (
-        <SafeAreaView style={style.container}>
-            <ScrollView refreshControl={
-                <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
-            }>
+        <View style={style.container}>
+            <View style={style.caseText}>
+                <Text>Les événements que j'ai créés :</Text>
+            </View>
+            <ScrollView style={style.caseParty}>
                 {party.map((element, index) => (
                     <View key={`${element}-${index}`} style={style.item}>
-                        <Pressable onPress={() => navigation.navigate('PartyCard', {
-                            indexParty: {index},
-                            element: {element},
-                        })}>
+                        <Pressable>
                             <Image style={style.itemImg} source={require('../assets/city/effeil.png')} />
                             <View style={style.itemText}>
                                 <View style={style.avatarBlock}>
                                     <Image style={style.avatar} source={require('../assets/city/user.jpg')} />
                                 </View>
                                 <View style={style.itemInfo}>
-                                    <Text style={style.itemTextUnit}>{element.name}</Text>
+                                    <Text style={style.itemTextUnit}>{element.name} ({element.activity})</Text>
                                     <Text style={style.itemTextUnitCity}>{element.city} ({element.date.substr(0, 10)})</Text>
                                     <Text style={style.itemTextUnitAddress}>{element.address}</Text>
                                     <Text style={style.itemTextUnitPeople}>{element.people} pers. max ({element.gender})</Text>
@@ -78,7 +61,7 @@ export default function HomeScreen({ navigation }) {
                                     >
                                         <Marker
                                             coordinate={{ latitude: element.lat, longitude: element.lng }}
-                                            pinColor={'#01C38E'}
+                                            pinColor={'green'}
                                         />
                                     </MapView>
                                 </View>
@@ -87,6 +70,9 @@ export default function HomeScreen({ navigation }) {
                     </View>
                 ))}
             </ScrollView>
-        </SafeAreaView>
+            {/* <View style={style.caseText}>
+                <Text>Les événements auxquels je participe :</Text>
+            </View> */}
+        </View>
     );
 }

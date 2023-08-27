@@ -10,6 +10,8 @@ import SigninScreen from '../components/SigninScreen.jsx';
 import ProfilScreen from '../components/ProfilScreen.jsx';
 import FormScreen from '../components/FormScreen.jsx';
 import LoginScreen from '../components/LoginScreen.jsx';
+import PartyScreen from '../components/PartyScreen.jsx';
+import PartyCardScreen from '../components/PartyCardScreen.jsx';
 import LogoTitle from '../components/utils/LogoTitle.jsx';
 import SplashScreen from '../components/utils/SplashScreen.jsx';
 import * as SecureStore from 'expo-secure-store';
@@ -150,14 +152,15 @@ function App() {
         </Tab.Screen>
         <Tab.Screen
           name="Party"
-          component={ProfilScreen}
           options={{
-            headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={35} />,
+            headerTitle: (props) => <LogoTitle {...props} title={"Mes Party"} size={35} />,
             tabBarIcon: () => (
               <MaterialCommunityIcons name="party-popper" size={28} color="black" />
             ),
           }}
-        />
+        >
+          {(props) => <PartyScreen {...props} userId={userId} />}
+        </Tab.Screen>
       </Tab.Navigator>
     );
   }
@@ -183,6 +186,7 @@ function App() {
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"S'inscrire"} size={25} />,
                   headerBackTitleVisible: false,
+                  headerTintColor: "#01C38E",
                 }}
               >
                 {(props) => <SigninScreen {...props} authContext={authContext} />}
@@ -198,9 +202,21 @@ function App() {
                   headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
                   headerBackTitleVisible: false,
                   animation: "fade",
+                  headerTintColor: "#01C38E",
                 }}
               >
                 {(props) => <ProfilScreen {...props} authContext={authContext} userId={userId} />}
+              </Stack.Screen>
+              <Stack.Screen
+                name="PartyCard"
+                options={{
+                  headerTitle: (props) => <LogoTitle {...props} title={"Let's Party !"} size={25} />,
+                  headerBackTitleVisible: false,
+                  animation: "fade",
+                  headerTintColor: "#01C38E",
+                }}
+              >
+                {(props) => <PartyCardScreen {...props} userId={userId} />}
               </Stack.Screen>
             </Stack.Group>
           )}

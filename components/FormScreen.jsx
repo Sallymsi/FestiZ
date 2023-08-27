@@ -27,7 +27,7 @@ export default function FormScreen({ userId, navigation }) {
 
 
     const dateArray = date.split('/');
-    const newDate = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
+    const newDate = dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1];
 
     const activityList = [
         'Bar',
