@@ -54,7 +54,7 @@ export default function HomeScreen({ navigation }) {
                             <Image style={style.itemImg} source={require('../assets/city/effeil.png')} />
                             <View style={style.itemText}>
                                 <View style={style.avatarBlock}>
-                                    <Image style={style.avatar} source={require('../assets/city/user.jpg')} />
+                                    <Image style={style.avatar} source={{uri: element.userImage}} />
                                 </View>
                                 <View style={style.itemInfo}>
                                     <Text style={style.itemTextUnit}>{element.name}</Text>

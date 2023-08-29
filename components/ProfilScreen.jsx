@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Button, Pressable, Image, ScrollView } from 'react-native';
+import { View, Text, Button, Image } from 'react-native';
 import style from '../Style';
 import { getProfil } from '../js/fetch';
 import * as ImagePicker from 'expo-image-picker';
@@ -30,7 +30,7 @@ export default function ProfilScreen({ authContext, userId }) {
             changeYear(data[0].year);
             changeImageProfil(data[0].image);
         })
-    }, []);
+    }, [setProfilImage]);
 
     const options = {
         method: "POST",
@@ -39,7 +39,6 @@ export default function ProfilScreen({ authContext, userId }) {
     };
 
     function setProfilImage() {
-        console.log(data);
         fetch(urlProfilImage, options)
             .then(resp => resp.json)
 
@@ -51,7 +50,6 @@ export default function ProfilScreen({ authContext, userId }) {
 
     const pickImage = async () => {
         
-        // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
             allowsEditing: true,
@@ -59,15 +57,12 @@ export default function ProfilScreen({ authContext, userId }) {
             quality: 1,
         });
 
-        console.log(result.assets[0].uri);
-
         if (!result.canceled) {
             let image = result.assets[0].uri;
             let firstName = image.substring(image.lastIndexOf("/") + 1);
             let finalName = firstName.split(".")[0];
             let uriParts = image.split(".");
             let fileType = uriParts[uriParts.length - 1];
-            console.log(finalName);
             setImage(image);
             setImageType(fileType);
             setImageFilename(finalName);
@@ -80,17 +75,19 @@ export default function ProfilScreen({ authContext, userId }) {
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                 {imageProfil && <Image source={{ uri: imageProfil }} style={{ width: 200, height: 200 }} />}
                 </View>
-                <View style={{ alignItems: 'center', justifyContent: 'center' }}>
+                {!imageProfil && (
+                   <View style={{ alignItems: 'center', justifyContent: 'center' }}>
                     <Button title="Choisir une image de profil" onPress={pickImage} color='#01C38E' />
                     {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-                </View>
-                    {image && (
-                        <Button 
-                            title="Sauvegarder l'image"
-                            color="#01C38E"
-                            onPress={setProfilImage}
-                        />
-                    )}
+                </View> 
+                )}
+                {image && (
+                    <Button 
+                        title="Sauvegarder l'image"
+                        color="#01C38E"
+                        onPress={setProfilImage}
+                    />
+                )}
             </View>
             <View style={style.caseText}>
                 <Text>{name}</Text>

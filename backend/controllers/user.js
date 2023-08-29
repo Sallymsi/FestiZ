@@ -4,7 +4,6 @@ const dbCon = require("../others/ConDb");
 
 // Enregistre un nouvel utilisateur dans la base de donnée :
 exports.signup = (req, res, next) => {
-    console.log(req.body);
     bcrypt.hash(req.body.form.password, 10)
         .then(hash => {
             let name = req.body.form.name;
@@ -13,7 +12,6 @@ exports.signup = (req, res, next) => {
             // let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
             let email = req.body.form.email;
             let password = hash;
-            console.log('hash : ' + password);
 
             const db = dbCon();
 
@@ -28,7 +26,6 @@ exports.signup = (req, res, next) => {
 
                 db.query(sql2, [email], function (err, result) {
                     if (err) throw err;
-                    console.log(result);
                     res.status(201).json({
                         userId: result[0].id,
                         token: jwt.sign(
@@ -65,6 +62,7 @@ exports.login = (req, res, next) => {
                     }
                     res.status(200).json({
                         userId: result[0].id,
+                        imageUser: result[0].image,
                         token: jwt.sign(
                             { userId: result[0].id },
                             'RANDOM_TOKEN_SECRET',
@@ -94,16 +92,9 @@ exports.profil = (req, res, next) => {
 };
 
 exports.setProfilImage = (req, res, next) => {
-    console.log(req.body.userId);
-    console.log(req.body.image);
-    console.log(req.file);
-
     let userId = req.body.userId;
     let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
     let sql = "UPDATE user SET image = ? WHERE id = ?";
-
-    console.log(image);
-    console.log(req.file.filename);
 
     const db = dbCon();
 

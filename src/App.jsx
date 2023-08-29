@@ -24,6 +24,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   const [userId, changeUserId] = React.useState(null);
+  const [userImage, changeUserImage] = React.useState();
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -90,6 +91,8 @@ function App() {
 
         login(options).then((data) => {
           changeUserId(data.userId);
+          changeUserImage(data.imageUser);
+          console.log(data.imageUser);
           dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
         });
       },
@@ -120,6 +123,8 @@ function App() {
     []
   );
 
+  // console.log("userImage" + userImage);
+
   function BottomTabs({ navigation }) {
     return (
       <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
@@ -148,7 +153,7 @@ function App() {
             ),
           }}
         >
-          {(props) => <FormScreen {...props} userId={userId} />}
+          {(props) => <FormScreen {...props} userId={userId} userImage={userImage} />}
         </Tab.Screen>
         <Tab.Screen
           name="Party"

@@ -32,17 +32,17 @@ export default {
         borderRadius: 6,
     },
     avatarBlock: {
-        width: 50,
-        height: 50,
-        borderRadius: 25,
+        width: 75,
+        height: 75,
+        borderRadius: 100,
         position: 'absolute',
-        top: -35,
+        top: -55,
         left: 15,
     },
     avatar: {
         width: '100%',
         height: '100%',
-        borderRadius: 25,
+        borderRadius: 100,
     },
     itemText: {
         flexDirection: 'row',
