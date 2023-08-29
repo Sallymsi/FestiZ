@@ -5,6 +5,7 @@ import MapView, { Marker } from 'react-native-maps';
 
 export default function PartyCardScreen({ route, userId }) {
     const { element } = route.params;
+    const [isMap, setIsMap] = React.useState(false);
 
     // React.useEffect(() => {
     //     console.log(element.element.userId);
@@ -17,27 +18,38 @@ export default function PartyCardScreen({ route, userId }) {
                 <View style={style.caseText}>
                     <Text>{element.element.name}</Text>
                 </View>
-                <View style={style.itemMaps}>
-                    <MapView style={style.map}
-                        initialRegion={{
-                            latitude: `${element.element.lat}`,
-                            longitude: `${element.element.lng}`,
-                            latitudeDelta: 0.04,
-                            longitudeDelta: 0.05,
-                        }}
-                        zoomEnabled={false}
-                        minZoomLevel={13}
-                        maxZoomLevel={13}
-                        rotateEnabled={false}
-                        scrollEnabled={false}
-                        mapType={Platform.OS == "android" ? "none" : "standard"}
-                    >
-                    <Marker
-                        coordinate={{ latitude: element.element.lat, longitude: element.element.lng }}
-                        pinColor={'green'}
+                {!isMap && (
+                <View>
+                    <Button 
+                        title="Afficher la map !"
+                        color='#01C38E'
+                        onPress={() => setIsMap(true)}
                     />
-                    </MapView>
                 </View>
+                )}
+                {isMap && (
+                    <View style={style.itemMaps}>
+                        <MapView style={style.map}
+                            initialRegion={{
+                                latitude: `${element.element.lat}`,
+                                longitude: `${element.element.lng}`,
+                                latitudeDelta: 0.04,
+                                longitudeDelta: 0.05,
+                            }}
+                            zoomEnabled={false}
+                            minZoomLevel={13}
+                            maxZoomLevel={13}
+                            rotateEnabled={false}
+                            scrollEnabled={false}
+                            mapType={Platform.OS == "android" ? "none" : "standard"}
+                        >
+                        <Marker
+                            coordinate={{ latitude: element.element.lat, longitude: element.element.lng }}
+                            pinColor={'green'}
+                        />
+                        </MapView>
+                    </View>
+                )}
                 <View style={style.caseText}>
                     <Text>Information sur la soirée :</Text>
                 </View>

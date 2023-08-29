@@ -92,3 +92,27 @@ exports.profil = (req, res, next) => {
     })
 
 };
+
+exports.setProfilImage = (req, res, next) => {
+    console.log(req.body.userId);
+    console.log(req.body.image);
+    console.log(req.file);
+
+    let userId = req.body.userId;
+    let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+    let sql = "UPDATE user SET image = ? WHERE id = ?";
+
+    console.log(image);
+    console.log(req.file.filename);
+
+    const db = dbCon();
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [image, userId], function (err, result) {
+            if (err) throw err;
+            res.status(201).json(result);
+        });
+    })
+
+};

@@ -2,9 +2,10 @@ import React from 'react';
 import { Button, Image, View } from 'react-native';
 import * as ImagePicker from 'expo-image-picker';
 
-export default function PickerImage({ image, setImage, setFile }) {
+export default function PickerImage({ image, setImage, userId, data}) {
 
     const pickImage = async () => {
+        
         // No permissions request is necessary for launching the image library
         let result = await ImagePicker.launchImageLibraryAsync({
             mediaTypes: ImagePicker.MediaTypeOptions.All,
@@ -14,11 +15,17 @@ export default function PickerImage({ image, setImage, setFile }) {
             // base64: true,
         });
 
-        console.log(result);
+        console.log(result.assets[0].uri);
 
         if (!result.canceled) {
             setImage(result.assets[0].uri);
-            setFile(result.assets[0]);
+            data.append('userId', userId);
+            data.append('fileData', {
+                'uri': result.assets[0].uri,
+                'type': result.assets[0].type,
+                'name': result.assets[0].fileName
+            });
+            console.log(data);
         }
     };
 

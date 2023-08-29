@@ -22,12 +22,11 @@ export default function FormScreen({ userId, navigation }) {
     const [genderType, setGenderType] = React.useState('Mixte');
     const [activityIndex, setActivityIndex] = React.useState(0);
     const [activityType, setActivityType] = React.useState('Bar');
-    const [date, setDate] = React.useState(new Date().toLocaleDateString());
+    const [date, setDate] = React.useState(new Date());
     const ref = useRef();
 
-
-    const dateArray = date.split('/');
-    const newDate = dateArray[2] + '-' + dateArray[0] + '-' + dateArray[1];
+    const dateArray = date.toLocaleDateString('fr-FR').toString().split('/');
+    const newDate = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
 
     const activityList = [
         'Bar',
@@ -87,21 +86,8 @@ export default function FormScreen({ userId, navigation }) {
 
     const onChange = (event, selectedDate) => {
         // setShow(false);
-        setDate(selectedDate.toLocaleDateString());
+        setDate(selectedDate);
     };
-
-    // const showMode = (currentMode) => {
-    //     setShow(true);
-    //     setMode(currentMode);
-    // };
-
-    // const showDatepicker = () => {
-    //     showMode('date');
-    // };
-
-    // const showTimepicker = () => {
-    //     showMode('time');
-    // };
 
     const selectedActivity = (index, item) => {
         setActivityIndex(index);
@@ -167,7 +153,7 @@ export default function FormScreen({ userId, navigation }) {
                             testID="dateTimePicker"
                             display="default"
                             minimumDate={new Date()}
-                            value={new Date()}
+                            value={date}
                             mode={'date'}
                             is24Hour={true}
                             onChange={onChange}
@@ -244,10 +230,6 @@ export default function FormScreen({ userId, navigation }) {
                     navigation.navigate('Home');
                     alert('Soirée enregistrée !');
                 })} />
-                {/* <Button
-                    title="Form"
-                    onPress={() => console.log(form)}
-                /> */}
             </ScrollView>
         </SafeAreaView >
     );
