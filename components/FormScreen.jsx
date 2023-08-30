@@ -232,6 +232,10 @@ export default function FormScreen({ userId, userImage, navigation }) {
                     navigation.navigate('Home');
                     alert('Soirée enregistrée !');
                 })} />
+                <Button 
+                    title="Form"
+                    onPress={() => console.log(form)}
+                />
             </ScrollView>
         </SafeAreaView >
     );

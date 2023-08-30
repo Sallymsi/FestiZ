@@ -2,6 +2,7 @@ const urlAddParty = 'http://localhost:8080/api/post/set-party/';
 const urlAddUser = 'http://localhost:8080/api/auth/signup/';
 const urlLogUser = 'http://localhost:8080/api/auth/login/';
 const urlProfilUser = 'http://localhost:8080/api/auth/profil/';
+const urlProfilImage = 'http://localhost:8080/api/auth/profil-image/';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -30,8 +31,6 @@ export async function signup(options) {
                 await SecureStore.setItemAsync('userId', JSON.stringify(data.userId));
                 console.log("User ajouté à la BDD !");
                 return data;
-            } else {
-                console.log('Echec Fetching....')
             }
         })
 
@@ -73,3 +72,13 @@ export async function getProfil(userId) {
             throw error;
         })
 };
+
+export function setProfilImage() {
+    fetch(urlProfilImage, options)
+        .then(resp => resp.json)
+
+        .catch(function (error) {
+            console.log('There has been a problem with your fetch operation (setProfilImage): ' + error.message);
+            throw error;
+        })
+}

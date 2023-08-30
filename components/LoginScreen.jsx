@@ -47,6 +47,11 @@ export default function LoginScreen({ authContext, navigation }) {
                 title="S'inscrire !"
                 onPress={() => navigation.navigate('Signin')}
             />
+            <Button
+                color="#01C38E"
+                title="Form"
+                onPress={() => console.log(form)}
+            />
         </SafeAreaView>
     );
 };

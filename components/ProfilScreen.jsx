@@ -2,25 +2,14 @@ import * as React from 'react';
 import { View, Text, Button, Image } from 'react-native';
 import style from '../Style';
 import { getProfil } from '../js/fetch';
-import * as ImagePicker from 'expo-image-picker';
 
 export default function ProfilScreen({ authContext, userId }) {
-    const urlProfilImage = 'http://localhost:8080/api/auth/profil-image/';
     let [email, changeEmail] = React.useState();
     let [name, changeName] = React.useState();
     let [imageProfil, changeImageProfil] = React.useState();
     let [gender, changeGender] = React.useState();
     let [year, changeYear] = React.useState();
     let [image, setImage] = React.useState(null);
-    let [imageType, setImageType] = React.useState();
-    let [imageFilename, setImageFilename] = React.useState();
-    let data = new FormData();
-    data.append('userId', userId);
-    data.append('image', {
-        uri : image,
-        type: imageType,
-        name: imageFilename
-    });
 
     React.useEffect(() => {
         getProfil(userId).then((data) => {
@@ -30,64 +19,15 @@ export default function ProfilScreen({ authContext, userId }) {
             changeYear(data[0].year);
             changeImageProfil(data[0].image);
         })
-    }, [setProfilImage]);
+    }, []);
 
-    const options = {
-        method: "POST",
-        headers: {'Content-Type': 'multipart/form-data'},
-        body: data,
-    };
-
-    function setProfilImage() {
-        fetch(urlProfilImage, options)
-            .then(resp => resp.json)
-
-            .catch(function (error) {
-                console.log('There has been a problem with your fetch operation (setProfilImage): ' + error.message);
-                throw error;
-            })
-    }
-
-    const pickImage = async () => {
-        
-        let result = await ImagePicker.launchImageLibraryAsync({
-            mediaTypes: ImagePicker.MediaTypeOptions.All,
-            allowsEditing: true,
-            aspect: [4, 3],
-            quality: 1,
-        });
-
-        if (!result.canceled) {
-            let image = result.assets[0].uri;
-            let firstName = image.substring(image.lastIndexOf("/") + 1);
-            let finalName = firstName.split(".")[0];
-            let uriParts = image.split(".");
-            let fileType = uriParts[uriParts.length - 1];
-            setImage(image);
-            setImageType(fileType);
-            setImageFilename(finalName);
-        }
-    };
 
     return (
         <View style={style.container}>
             <View style={style.caseText}>
                 <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                {imageProfil && <Image source={{ uri: imageProfil }} style={{ width: 200, height: 200 }} />}
+                    {imageProfil && <Image source={{ uri: imageProfil }} style={{ width: 200, height: 200 }} />}
                 </View>
-                {!imageProfil && (
-                   <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-                    <Button title="Choisir une image de profil" onPress={pickImage} color='#01C38E' />
-                    {image && <Image source={{ uri: image }} style={{ width: 200, height: 200 }} />}
-                </View> 
-                )}
-                {image && (
-                    <Button 
-                        title="Sauvegarder l'image"
-                        color="#01C38E"
-                        onPress={setProfilImage}
-                    />
-                )}
             </View>
             <View style={style.caseText}>
                 <Text>{name}</Text>

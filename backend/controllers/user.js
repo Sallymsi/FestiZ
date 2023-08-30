@@ -4,23 +4,23 @@ const dbCon = require("../others/ConDb");
 
 // Enregistre un nouvel utilisateur dans la base de donnée :
 exports.signup = (req, res, next) => {
-    bcrypt.hash(req.body.form.password, 10)
+    bcrypt.hash(req.body.password, 10)
         .then(hash => {
-            let name = req.body.form.name;
-            let year = req.body.form.year;
-            let gender = req.body.form.gender;
-            // let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
-            let email = req.body.form.email;
+            let name = req.body.name;
+            let year = req.body.year;
+            let gender = req.body.gender;
+            let image = `${req.protocol}://${req.get('host')}/images/${req.file.filename}`;
+            let email = req.body.email;
             let password = hash;
 
             const db = dbCon();
 
-            let sql = "INSERT INTO user (name, year, gender, email, password) VALUES (?, ?, ?, ?, ?)";
-            let sql2 = "SELECT id FROM user WHERE email = ?";
+            let sql = "INSERT INTO user (name, year, gender, image, email, password) VALUES (?, ?, ?, ?, ?, ?)";
+            let sql2 = "SELECT id, image FROM user WHERE email = ?";
 
             db.connect(function (err) {
                 if (err) throw err;
-                db.query(sql, [name, year, gender, email, password], function (err, result) {
+                db.query(sql, [name, year, gender, image, email, password], function (err, result) {
                     if (err) throw err;
                 });
 
@@ -28,6 +28,7 @@ exports.signup = (req, res, next) => {
                     if (err) throw err;
                     res.status(201).json({
                         userId: result[0].id,
+                        imageUser: result[0].image,
                         token: jwt.sign(
                             { userId: result[0].id },
                             'RANDOM_TOKEN_SECRET',
