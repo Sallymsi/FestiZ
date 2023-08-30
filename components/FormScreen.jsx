@@ -9,7 +9,7 @@ import Geocoder from 'react-native-geocoding';
 import { addParty } from '../js/fetch';
 import { Slider } from '@react-native-assets/slider';
 
-export default function FormScreen({ userId, userImage, navigation }) {
+export default function FormScreen({ userId, navigation }) {
     const [name, onChangeName] = React.useState('');
     const [city, onChangeCity] = React.useState('');
     const [address, onChangeAddress] = React.useState('');
@@ -24,7 +24,6 @@ export default function FormScreen({ userId, userImage, navigation }) {
     const [activityType, setActivityType] = React.useState('Bar');
     const [date, setDate] = React.useState(new Date());
     const ref = useRef();
-    console.log(userImage);
 
     const dateArray = date.toLocaleDateString('fr-FR').toString().split('/');
     const newDate = dateArray[2] + '-' + dateArray[1] + '-' + dateArray[0];
@@ -53,7 +52,7 @@ export default function FormScreen({ userId, userImage, navigation }) {
 
     const form = {
         "userId": userId,
-        "userImage": userImage,
+        // "userImage": userImage,
         "name": name,
         "city": city,
         'activity': activityType,
