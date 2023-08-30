@@ -3,7 +3,7 @@ import { Text, View, Image, Pressable } from 'react-native';
 import style from '../../Style';
 import MapView, { Marker } from 'react-native-maps';
 
-export default function CardParty({ element }) {
+export default function CardParty({ element, index, navigation }) {
     return (
         <Pressable onPress={() => navigation.navigate('PartyCard', {
             indexParty: {index},

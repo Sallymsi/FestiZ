@@ -47,7 +47,7 @@ export default function HomeScreen({ navigation }) {
             }>
                 {party.map((element, index) => (
                     <View key={`${element}-${index}`} style={style.item}>
-                        <CardParty element={element} />
+                        <CardParty element={element} index={index} navigation={navigation}/>
                     </View>
                 ))}
             </ScrollView>

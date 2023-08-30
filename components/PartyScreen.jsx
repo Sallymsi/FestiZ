@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, Text, Pressable, Image, ScrollView } from 'react-native';
+import { View, Text, ScrollView } from 'react-native';
 import style from '../Style';
 import CardParty from './utils/CardParty';
 
