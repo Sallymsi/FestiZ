@@ -1,5 +1,6 @@
 const dbCon = require("../others/ConDb");
 
+// Create a party :
 exports.setParty = (req, res, next) => {
     let userId = req.body.userId;
     let userImage = req.body.userImage;
@@ -29,12 +30,13 @@ exports.setParty = (req, res, next) => {
     })
 };
 
-
+// Get all party :
 exports.getParty = (req, res, next) => {
 
     const db = dbCon();
 
     let sql = "SELECT id, userId, userImage, name, city, activity, address, lat, lng, date, people, minYear, maxyear, gender FROM soiree";
+    // let sql "SELECT soiree.id, soiree.userId, soiree.name, soiree.city, soiree.activity, soiree.address, soiree.lat, soiree.lng, date, people, minYear, maxYear, soiree.gender, image FROM soiree JOIN user ON soiree.userId = user.id WHERE soiree.userId= ?";
 
     db.connect(function (err) {
         if (err) throw err;
@@ -45,7 +47,7 @@ exports.getParty = (req, res, next) => {
     })
 };
 
-
+// Get Party only one user :
 exports.getPartyUser = (req, res, next) => {
     let userId = req.params.userId;
 
@@ -62,6 +64,7 @@ exports.getPartyUser = (req, res, next) => {
     })
 };
 
+// To destroy :
 exports.test = (req, res, next) => {
     let userId = req.params.userId;
 
@@ -75,6 +78,26 @@ exports.test = (req, res, next) => {
             if (err) throw err;
             console.log(result);
             res.status(201).json(result);
+        });
+    })
+};
+
+
+// Add user to party :
+exports.addUserToParty = (req, res, next) => {
+    let userId = req.body.userId;
+    let partyId = req.body.partyId;
+
+    const db = dbCon();
+
+    let sql = "INSERT INTO soiree_user (partyId, userId)";
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [partyId, userId], function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            res.status(201).json({ status: 'success', message: "User ajouté à la BDD !" });
         });
     })
 };
