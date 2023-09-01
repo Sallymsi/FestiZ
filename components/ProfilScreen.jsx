@@ -9,7 +9,6 @@ export default function ProfilScreen({ authContext, userId }) {
     let [imageProfil, changeImageProfil] = React.useState();
     let [gender, changeGender] = React.useState();
     let [year, changeYear] = React.useState();
-    let [image, setImage] = React.useState(null);
 
     React.useEffect(() => {
         getProfil(userId).then((data) => {
@@ -21,6 +20,8 @@ export default function ProfilScreen({ authContext, userId }) {
         })
     }, []);
 
+    // console.log("Token : " + userToken);
+    console.log("userId : " + userId);
 
     return (
         <View style={style.container}>

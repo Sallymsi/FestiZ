@@ -9,7 +9,7 @@ import Geocoder from 'react-native-geocoding';
 import { addParty } from '../js/fetch';
 import { Slider } from '@react-native-assets/slider';
 
-export default function FormScreen({ userId, navigation }) {
+export default function FormScreen({ navigation, userId, userToken }) {
     const [name, onChangeName] = React.useState('');
     const [city, onChangeCity] = React.useState('');
     const [address, onChangeAddress] = React.useState('');
@@ -52,7 +52,6 @@ export default function FormScreen({ userId, navigation }) {
 
     const form = {
         "userId": userId,
-        // "userImage": userImage,
         "name": name,
         "city": city,
         'activity': activityType,
@@ -69,7 +68,7 @@ export default function FormScreen({ userId, navigation }) {
     const options = {
         method: "POST",
         body: JSON.stringify(form),
-        headers: { "Content-type": "application/json" }
+        headers: { "Content-type": "application/json", "Authorization": "Bearer " + userToken }
     };
 
     function clearInput() {
@@ -231,7 +230,7 @@ export default function FormScreen({ userId, navigation }) {
                     navigation.navigate('Home');
                     alert('Soirée enregistrée !');
                 })} />
-                <Button 
+                <Button
                     title="Form"
                     onPress={() => console.log(form)}
                 />

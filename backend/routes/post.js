@@ -5,9 +5,10 @@ const auth = require('../middlewares/auth');
 // const multer = require('../middleware/multer-file');
 
 // Initialisation des routes à partir du Routeur d'Express :
-router.post('/set-party', auth, postCtrl.setParty);
-router.get('/get-party', auth, postCtrl.getParty);
-router.get('/party-user/:userId', auth, postCtrl.getPartyUser);
+router.post('/set-party', postCtrl.setParty);
+router.get('/get-party', postCtrl.getParty);
+router.get('/test/:userId', postCtrl.test);
+router.get('/party-user/:userId', postCtrl.getPartyUser);
 // router.post('/response', auth, postCtrl.reponse);
 // router.delete('/delete', auth, postCtrl.deleteMsg);
 // router.delete('/deleteAnswer', auth, postCtrl.deleteAnswer);

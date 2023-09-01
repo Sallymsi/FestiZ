@@ -34,7 +34,6 @@ export default {
     avatarBlock: {
         width: 75,
         height: 75,
-        borderRadius: 100,
         position: 'absolute',
         top: -55,
         left: 15,

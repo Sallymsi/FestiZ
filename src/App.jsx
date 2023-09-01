@@ -24,6 +24,7 @@ const Stack = createNativeStackNavigator();
 
 function App() {
   const [userId, changeUserId] = React.useState(null);
+  const [userToken, changeUserToken] = React.useState(null);
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -68,6 +69,7 @@ function App() {
         userToken = await SecureStore.getItemAsync('userToken');
         userId = await SecureStore.getItemAsync('userId');
         changeUserId(userId);
+        changeUserToken(userToken);
       } catch (e) {
         console.log('Problème au niveau de SecureStore');
       }
@@ -90,6 +92,7 @@ function App() {
 
         login(options).then((data) => {
           changeUserId(data.userId);
+          changeUserToken(data.userToken);
           dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
         });
       },
@@ -104,12 +107,13 @@ function App() {
 
         const options = {
           method: "POST",
-          headers: {'Content-Type': 'multipart/form-data'},
+          headers: { 'Content-Type': 'multipart/form-data' },
           body: data,
         };
 
         signup(options).then((data) => {
           changeUserId(data.userId);
+          changeUserToken(data.userToken);
           dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
           if (data) {
             alert('User enregistré !');
@@ -125,17 +129,19 @@ function App() {
       <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
         <Tab.Screen
           name="Home"
-          component={HomeScreen}
+          children={() => <HomeScreen navigation={navigation} userId={state.userId} userToken={state.userToken} />}
           options={{
             tabBarIcon: () => (
               <Ionicons name="home" color="black" size={28} />
             ),
             headerTitle: (props) => <LogoTitle {...props} title={"FestiZ"} size={35} />,
+            headerStyle: {
+              backgroundColor: "#ecf0f1",
+            },
             headerRight: () => (
               <Pressable onPress={() => navigation.navigate('Profil')}>
                 <MaterialCommunityIcons name="face-man-profile" size={24} color="black" style={style.iconProfil} />
               </Pressable>
-
             ),
           }}
         />
@@ -143,27 +149,37 @@ function App() {
           name="Form"
           options={{
             headerTitle: (props) => <LogoTitle {...props} title={"Party"} size={35} />,
+            headerStyle: {
+              backgroundColor: "#ecf0f1",
+            },
             tabBarIcon: () => (
-              <AntDesign name="pluscircleo" color="black" size={34} />
+              <AntDesign name="pluscircleo" color="#01C38E" size={34} />
             ),
           }}
         >
-          {(props) => <FormScreen {...props} userId={userId} />}
+          {(props) => <FormScreen {...props} userId={state.userId} userToken={state.userToken} />}
         </Tab.Screen>
         <Tab.Screen
           name="Party"
           options={{
             headerTitle: (props) => <LogoTitle {...props} title={"Mes Party"} size={35} />,
+            headerStyle: {
+              backgroundColor: "#ecf0f1",
+            },
             tabBarIcon: () => (
               <MaterialCommunityIcons name="party-popper" size={28} color="black" />
             ),
           }}
         >
-          {(props) => <PartyScreen {...props} userId={userId} />}
+          {(props) => <PartyScreen {...props} userId={state.userId} />}
         </Tab.Screen>
       </Tab.Navigator>
     );
   }
+
+  // console.log("Token : " + state.userToken);
+  // console.log("userId : " + state.userId);
+
 
   return (
     <AuthContext.Provider value={authContext}>
@@ -186,6 +202,7 @@ function App() {
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"S'inscrire"} size={25} />,
                   headerBackTitleVisible: false,
+                  headerTitleAlign: "center",
                   headerTintColor: "#01C38E",
                 }}
               >
@@ -195,25 +212,35 @@ function App() {
           ) : (
             <Stack.Group>
               <Stack.Screen name="Tabs" component={BottomTabs} options={{ headerShown: false }} />
-              <Stack.Screen name="Home" component={HomeScreen} />
+              <Stack.Screen name="Home" component={HomeScreen} options={{ headerLargeTitleShadowVisible: false }} />
               <Stack.Screen
                 name="Profil"
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"Profil"} size={25} />,
                   headerBackTitleVisible: false,
-                  animation: "fade",
+                  headerTitleAlign: "center",
+                  animation: "slide_from_bottom",
                   headerTintColor: "#01C38E",
+                  headerStyle: {
+                    backgroundColor: "#ecf0f1",
+                  },
+                  headerLargeTitleShadowVisible: false,
                 }}
               >
-                {(props) => <ProfilScreen {...props} authContext={authContext} userId={userId} />}
+                {(props) => <ProfilScreen {...props} authContext={authContext} userId={state.userId} />}
               </Stack.Screen>
               <Stack.Screen
                 name="PartyCard"
                 options={{
                   headerTitle: (props) => <LogoTitle {...props} title={"Let's Party !"} size={25} />,
                   headerBackTitleVisible: false,
-                  animation: "fade",
+                  headerTitleAlign: "center",
+                  animation: "slide_from_bottom",
                   headerTintColor: "#01C38E",
+                  headerStyle: {
+                    backgroundColor: "#ecf0f1",
+                  },
+                  headerLargeTitleShadowVisible: false,
                 }}
               >
                 {(props) => <PartyCardScreen {...props} userId={userId} />}

@@ -61,3 +61,20 @@ exports.getPartyUser = (req, res, next) => {
         });
     })
 };
+
+exports.test = (req, res, next) => {
+    let userId = req.params.userId;
+
+    const db = dbCon();
+
+    let sql = "SELECT image FROM soiree JOIN user ON soiree.userId = user.id WHERE soiree.userId= ?";
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [userId], function (err, result) {
+            if (err) throw err;
+            console.log(result);
+            res.status(201).json(result);
+        });
+    })
+};
