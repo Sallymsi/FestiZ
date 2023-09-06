@@ -23,8 +23,7 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function App() {
-  const [userId, changeUserId] = React.useState(null);
-  const [userToken, changeUserToken] = React.useState(null);
+  // const [userId, changeUserId] = React.useState(null);
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -68,8 +67,8 @@ function App() {
       try {
         userToken = await SecureStore.getItemAsync('userToken');
         userId = await SecureStore.getItemAsync('userId');
-        changeUserId(userId);
-        changeUserToken(userToken);
+        // changeUserId(userId);
+        // changeUserToken(userToken);
       } catch (e) {
         console.log('Problème au niveau de SecureStore');
       }
@@ -129,7 +128,7 @@ function App() {
       <Tab.Navigator screenOptions={{ tabBarShowLabel: false }}>
         <Tab.Screen
           name="Home"
-          children={() => <HomeScreen navigation={navigation} userId={state.userId} userToken={state.userToken} />}
+          children={() => <HomeScreen navigation={navigation} />}
           options={{
             tabBarIcon: () => (
               <Ionicons name="home" color="black" size={28} />
@@ -243,7 +242,7 @@ function App() {
                   headerLargeTitleShadowVisible: false,
                 }}
               >
-                {(props) => <PartyCardScreen {...props} userId={userId} />}
+                {(props) => <PartyCardScreen {...props} userId={state.userId} />}
               </Stack.Screen>
             </Stack.Group>
           )}

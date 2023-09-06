@@ -3,18 +3,18 @@ import { Text, View, Image, Pressable } from 'react-native';
 import style from '../../Style';
 import MapView, { Marker } from 'react-native-maps';
 
-export default function CardParty({ element, index, navigation, imageUser }) {
+export default function CardParty({ element, navigation }) {
     return (
         <Pressable onPress={() => navigation.navigate('PartyCard', {
-            indexParty: { index },
             element: element,
-            imageUser: imageUser,
         })}>
             <Image style={style.itemImg} source={require('../../assets/city/effeil.png')} />
             <View style={style.itemText}>
-                <View style={style.avatarBlock}>
-                    <Image style={style.avatar} source={{ uri: imageUser }} />
-                </View>
+                {element.image && (
+                    <View style={style.avatarBlock}>
+                        <Image style={style.avatar} source={{ uri: element.image }} />
+                    </View>
+                )}
                 <View style={style.itemInfo}>
                     <Text style={style.itemTextUnit}>{element.name}</Text>
                     <Text style={style.itemTextUnitCity}>{element.city} ({element.date.substr(0, 10)})</Text>

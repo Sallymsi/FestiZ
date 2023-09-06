@@ -2,19 +2,14 @@ import * as React from 'react';
 import { SafeAreaView, ScrollView, View, RefreshControl, StatusBar } from 'react-native';
 import style from '../Style';
 import CardParty from './utils/CardParty';
-import { setTest } from '../js/fetch'
 
-export default function HomeScreen({ navigation, userToken, userId }) {
+export default function HomeScreen({ navigation }) {
     const url = 'http://192.168.0.28:8080/api/post/get-party/';
     const [party, setParty] = React.useState([]);
-    const [imageUser, setImageUser] = React.useState(null);
     const [refreshing, setRefreshing] = React.useState(false);
 
     React.useEffect(() => {
         getParty(options);
-        setTest(userId).then((data) => {
-            setImageUser(data[0].image);
-        });
     }, []);
 
     const options = {
@@ -56,7 +51,7 @@ export default function HomeScreen({ navigation, userToken, userId }) {
             }>
                 {party.map((element, index) => (
                     <View key={`${element}-${index}`} style={style.item}>
-                        <CardParty element={element} index={index} navigation={navigation} imageUser={imageUser} />
+                        <CardParty element={element} navigation={navigation} />
                     </View>
                 ))}
             </ScrollView>

@@ -3,7 +3,7 @@ const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
 const urlLogUser = 'http://192.168.0.28:8080/api/auth/login/';
 const urlProfilUser = 'http://192.168.0.28:8080/api/auth/profil/';
 const urlProfilImage = 'http://192.168.0.28:8080/api/auth/profil-image/';
-const urlTest = 'http://192.168.0.28:8080/api/post/test/';
+const urlAddUserToParty = 'http://192.168.0.28:8080/api/post/add-user-to-party/';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -84,12 +84,13 @@ export function setProfilImage() {
         })
 };
 
-export async function setTest(userId) {
-    return fetch(urlTest + userId)
-        .then(resp => resp.json())
+export function setUserToParty() {
+    fetch(urlAddUserToParty, options)
+        .then(resp => resp.json)
 
         .catch(function (error) {
-            console.log('There has been a problem with your fetch operation (setTest): ' + error.message);
+            console.log('There has been a problem with your fetch operation (setProfilImage): ' + error.message);
             throw error;
         })
-}
+};
+

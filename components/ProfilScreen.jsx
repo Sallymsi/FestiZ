@@ -21,7 +21,7 @@ export default function ProfilScreen({ authContext, userId }) {
     }, []);
 
     // console.log("Token : " + userToken);
-    console.log("userId : " + userId);
+    // console.log("userId : " + userId);
 
     return (
         <View style={style.container}>

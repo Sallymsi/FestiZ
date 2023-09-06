@@ -35,8 +35,7 @@ exports.getParty = (req, res, next) => {
 
     const db = dbCon();
 
-    let sql = "SELECT id, userId, userImage, name, city, activity, address, lat, lng, date, people, minYear, maxyear, gender FROM soiree";
-    // let sql "SELECT soiree.id, soiree.userId, soiree.name, soiree.city, soiree.activity, soiree.address, soiree.lat, soiree.lng, date, people, minYear, maxYear, soiree.gender, image FROM soiree JOIN user ON soiree.userId = user.id WHERE soiree.userId= ?";
+    let sql = "SELECT soiree.id, userId,  soiree.name, city, activity, address, lat, lng, date, people, minYear, maxyear, soiree.gender, user.image FROM soiree JOIN user ON soiree.userId = user.id ";
 
     db.connect(function (err) {
         if (err) throw err;
@@ -63,25 +62,6 @@ exports.getPartyUser = (req, res, next) => {
         });
     })
 };
-
-// To destroy :
-exports.test = (req, res, next) => {
-    let userId = req.params.userId;
-
-    const db = dbCon();
-
-    let sql = "SELECT image FROM soiree JOIN user ON soiree.userId = user.id WHERE soiree.userId= ?";
-
-    db.connect(function (err) {
-        if (err) throw err;
-        db.query(sql, [userId], function (err, result) {
-            if (err) throw err;
-            console.log(result);
-            res.status(201).json(result);
-        });
-    })
-};
-
 
 // Add user to party :
 exports.addUserToParty = (req, res, next) => {
