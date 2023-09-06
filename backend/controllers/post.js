@@ -70,13 +70,12 @@ exports.addUserToParty = (req, res, next) => {
 
     const db = dbCon();
 
-    let sql = "INSERT INTO soiree_user (partyId, userId)";
+    let sql = "INSERT INTO `soiree_user` (userId, partyId) VALUE (?, ?)";
 
     db.connect(function (err) {
         if (err) throw err;
-        db.query(sql, [partyId, userId], function (err, result) {
+        db.query(sql, [userId, partyId], function (err, result) {
             if (err) throw err;
-            console.log(result);
             res.status(201).json({ status: 'success', message: "User ajouté à la BDD !" });
         });
     })

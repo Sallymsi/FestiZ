@@ -84,12 +84,12 @@ export function setProfilImage() {
         })
 };
 
-export function setUserToParty() {
+export function setUserToParty(options) {
     fetch(urlAddUserToParty, options)
         .then(resp => resp.json)
 
         .catch(function (error) {
-            console.log('There has been a problem with your fetch operation (setProfilImage): ' + error.message);
+            console.log('There has been a problem with your fetch operation (setUserToParty): ' + error.message);
             throw error;
         })
 };

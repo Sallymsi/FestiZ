@@ -13,6 +13,7 @@ export default function PartyCardScreen({ route, userId }) {
         "userId": userId,
         "partyId": element.id,
     }
+    console.log(form);
 
     const options = {
         method: "POST",
