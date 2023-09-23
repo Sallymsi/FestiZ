@@ -2,8 +2,19 @@ import * as React from 'react';
 import { Text, View, Image, Pressable } from 'react-native';
 import style from '../../Style';
 import MapView, { Marker } from 'react-native-maps';
+import { getUserParticipateToParty } from '../../js/fetch';
 
 export default function CardParty({ element, navigation }) {
+    const [userParty, changeUserParty] = React.useState(null);
+
+    React.useEffect(() => {
+        getUserParticipateToParty(element.id)
+            .then((data) => {
+                // console.log(data[0].number);
+                changeUserParty(data[0].number);
+            })
+    }, []);
+
     return (
         <Pressable onPress={() => navigation.navigate('PartyCard', {
             element: element,
@@ -19,7 +30,7 @@ export default function CardParty({ element, navigation }) {
                     <Text style={style.itemTextUnit}>{element.name}</Text>
                     <Text style={style.itemTextUnitCity}>{element.city} ({element.date.substr(0, 10)})</Text>
                     <Text style={style.itemTextUnitAddress}>{element.address}</Text>
-                    <Text style={style.itemTextUnitPeople}>{element.people} pers. max ({element.gender})</Text>
+                    <Text style={style.itemTextUnitPeople}>{userParty} / {element.people} pers. max ({element.gender})</Text>
                 </View>
                 <View style={style.itemMaps}>
                     <MapView style={style.map}

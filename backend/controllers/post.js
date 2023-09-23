@@ -80,3 +80,20 @@ exports.addUserToParty = (req, res, next) => {
         });
     })
 };
+
+// Get party's users :
+exports.getUserParticipateToParty = (req, res, next) => {
+    let partyId = req.params.partyId;
+
+    const db = dbCon();
+
+    let sql = "SELECT COUNT(*) AS number FROM soiree_user WHERE partyId= ?";
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [partyId], function (err, result) {
+            if (err) throw err;
+            res.status(201).json(result);
+        });
+    })
+};

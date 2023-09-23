@@ -23,7 +23,8 @@ const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 function App() {
-  // const [userId, changeUserId] = React.useState(null);
+  const [userId, changeUserId] = React.useState(null);
+  const [userToken, changeUserToken] = React.useState(null);
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {

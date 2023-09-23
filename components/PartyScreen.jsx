@@ -4,7 +4,7 @@ import style from '../Style';
 import CardParty from './utils/CardParty';
 
 export default function PartyScreen({ userId }) {
-    const urlPartyUser = 'http://192.168.0.28:8080/api/post/party-user/';
+    const urlPartyUser = 'http://localhost:8080/api/post/party-user/';
     let [party, changeParty] = React.useState([]);
 
     React.useEffect(() => {
@@ -30,6 +30,9 @@ export default function PartyScreen({ userId }) {
             <View style={style.caseText}>
                 <Text>Les événements que j'ai créés :</Text>
             </View>
+            {party.length === 0 && (
+                    <Text style={style.caseText}>Créer une Party et revenez içi ! 🎉</Text>
+                )}
             <ScrollView style={style.caseParty}>
                 {party.map((element, index) => (
                     <View key={`${element}-${index}`} style={style.item}>
@@ -37,6 +40,19 @@ export default function PartyScreen({ userId }) {
                     </View>
                 ))}
             </ScrollView>
+            <View style={style.caseText}>
+                <Text>Les événements auquels je participe :</Text>
+            </View>
+            {/* <ScrollView style={style.caseParty}>
+                {party.map((element, index) => (
+                    <View key={`${element}-${index}`} style={style.item}>
+                        <CardParty element={element} />
+                    </View>
+                ))}
+                {party.length === 0 && (
+                    <Text style={style.caseText}>Créer une Party et revenez içi ! 🎉</Text>
+                )}
+            </ScrollView> */}
         </View>
     );
 }

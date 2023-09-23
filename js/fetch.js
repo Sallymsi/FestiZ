@@ -1,9 +1,10 @@
-const urlAddParty = 'http://192.168.0.28:8080/api/post/set-party/';
-const urlAddUser = 'http://192.168.0.28:8080/api/auth/signup/';
-const urlLogUser = 'http://192.168.0.28:8080/api/auth/login/';
-const urlProfilUser = 'http://192.168.0.28:8080/api/auth/profil/';
-const urlProfilImage = 'http://192.168.0.28:8080/api/auth/profil-image/';
-const urlAddUserToParty = 'http://192.168.0.28:8080/api/post/add-user-to-party/';
+const urlAddParty = 'http://localhost:8080/api/post/set-party/';
+const urlAddUser = 'http://localhost:8080/api/auth/signup/';
+const urlLogUser = 'http://localhost:8080/api/auth/login/';
+const urlProfilUser = 'http://localhost:8080/api/auth/profil/';
+const urlProfilImage = 'http://localhost:8080/api/auth/profil-image/';
+const urlAddUserToParty = 'http://localhost:8080/api/post/add-user-to-party/';
+const urlGetUsersParticipateToParty = 'http://localhost:8080/api/post/get-user-participate-to-party/';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -76,7 +77,7 @@ export async function getProfil(userId) {
 
 export function setProfilImage() {
     fetch(urlProfilImage, options)
-        .then(resp => resp.json)
+        .then(resp => resp.json())
 
         .catch(function (error) {
             console.log('There has been a problem with your fetch operation (setProfilImage): ' + error.message);
@@ -86,10 +87,24 @@ export function setProfilImage() {
 
 export function setUserToParty(options) {
     fetch(urlAddUserToParty, options)
-        .then(resp => resp.json)
+        .then(resp => resp.json())
 
         .catch(function (error) {
             console.log('There has been a problem with your fetch operation (setUserToParty): ' + error.message);
+            throw error;
+        })
+};
+
+export async function getUserParticipateToParty(partyId) {
+    return fetch(urlGetUsersParticipateToParty + partyId)
+        .then(resp => resp.json())
+
+        .then((data) => {
+            return data;
+        })
+
+        .catch(function (error) {
+            console.log('There has been a problem with your fetch operation (getUserParticipateToParty): ' + error.message);
             throw error;
         })
 };

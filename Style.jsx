@@ -28,7 +28,7 @@ export default {
     },
     itemImg: {
         width: '100%',
-        height: '50%',
+        height: '45%',
         borderRadius: 6,
     },
     avatarBlock: {
@@ -45,7 +45,7 @@ export default {
     },
     itemText: {
         flexDirection: 'row',
-        height: '50%',
+        height: '55%',
         width: '100%',
         textAlign: 'center',
         paddingVertical: 5,
@@ -54,8 +54,8 @@ export default {
     itemTextUnit: {
         color: '#fff',
         fontWeight: 'bold',
-        fontSize: 14,
-        paddingTop: 4,
+        fontSize: 16,
+        paddingTop: 14,
     },
     itemTextUnitCity: {
         color: '#fff',
@@ -73,7 +73,7 @@ export default {
         color: '#fff',
         fontWeight: 'bold',
         fontSize: 13,
-        paddingTop: 6,
+        paddingTop: 5,
     },
     itemInfo: {
         flex: 0.5,
@@ -88,7 +88,7 @@ export default {
         flex: 0.5,
         // backgroundColor: '#00AF6D',
         borderRadius: 10,
-        // width: '40%',
+        width: '100%',
         height: '100%',
         // margin: 5,
         margin: 5,
@@ -175,7 +175,8 @@ export default {
     caseParty: {
         margin: 0,
         padding: 0,
-        // height: '50%',
+        // height: '10%',
+        backgroundColor: 'blue',
     },
     backgroundParty: {
         backgroundColor: "#01C38E",

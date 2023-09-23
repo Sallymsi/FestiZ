@@ -9,6 +9,7 @@ router.post('/set-party', postCtrl.setParty);
 router.get('/get-party', postCtrl.getParty);
 router.get('/party-user/:userId', postCtrl.getPartyUser);
 router.post('/add-user-to-party', postCtrl.addUserToParty);
+router.get('/get-user-participate-to-party/:partyId', postCtrl.getUserParticipateToParty);
 // router.delete('/delete', auth, postCtrl.deleteMsg);
 // router.delete('/deleteAnswer', auth, postCtrl.deleteAnswer);
 // router.put('/update', auth, multer, postCtrl.updateMsg);
