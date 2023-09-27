@@ -33,6 +33,10 @@ export default function FormScreen({ navigation, userId, userToken }) {
         'Restaurant',
         'Pique-nique',
         'Billard',
+        'Bowling',
+        'Patinoire',
+        'Balade',
+        'Vélo',
     ];
 
     Geocoder.init(Key(), { language: "fr" });
