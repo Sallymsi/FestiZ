@@ -3,7 +3,7 @@ import { View, Text, Button, Image } from 'react-native';
 import style from '../Style';
 import MapView, { Marker } from 'react-native-maps';
 import TextFont from '../components/utils/TextFont.jsx';
-import { setUserToParty } from '../js/fetch';
+import { setUserToParty, cancelParty } from '../js/fetch';
 
 export default function PartyCardScreen({ route, userId }) {
     const { element } = route.params;
@@ -92,6 +92,7 @@ export default function PartyCardScreen({ route, userId }) {
                     <Button
                         title="Annuler l'événement !"
                         color='#01C38E'
+                        onPress={() => cancelParty(element.id)}
                     />
                 </View>
             )}

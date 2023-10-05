@@ -6,6 +6,7 @@ const auth = require('../middlewares/auth');
 
 // Initialisation des routes à partir du Routeur d'Express :
 router.post('/set-party', postCtrl.setParty);
+router.delete('/cancel-party/:partyId', postCtrl.cancelParty);
 router.get('/get-party', postCtrl.getParty);
 router.get('/party-user/:userId', postCtrl.getPartyUser);
 router.post('/add-user-to-party', postCtrl.addUserToParty);

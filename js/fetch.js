@@ -5,6 +5,7 @@ const urlProfilUser = 'http://localhost:8080/api/auth/profil/';
 const urlProfilImage = 'http://localhost:8080/api/auth/profil-image/';
 const urlAddUserToParty = 'http://localhost:8080/api/post/add-user-to-party/';
 const urlGetUsersParticipateToParty = 'http://localhost:8080/api/post/get-user-participate-to-party/';
+const urlCancelParty = 'http://localhost:8080/api/post/cancel-party/';
 
 import * as SecureStore from 'expo-secure-store';
 
@@ -102,6 +103,16 @@ export async function getUserParticipateToParty(partyId) {
         .then((data) => {
             return data;
         })
+
+        .catch(function (error) {
+            console.log('There has been a problem with your fetch operation (getUserParticipateToParty): ' + error.message);
+            throw error;
+        })
+};
+
+export async function cancelParty(partyId) {
+    return fetch(urlCancelParty + partyId)
+        .then(resp => resp.json())
 
         .catch(function (error) {
             console.log('There has been a problem with your fetch operation (getUserParticipateToParty): ' + error.message);

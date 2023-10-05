@@ -30,6 +30,24 @@ exports.setParty = (req, res, next) => {
     })
 };
 
+// Cancel a party :
+exports.cancelParty = (req, res, next) => {
+    let partyId = req.params.partyId;
+
+    console.log(partyId);
+    const db = dbCon();
+
+    let sql = "DELETE FROM soiree WHERE id = ?";
+
+    db.connect(function (err) {
+        if (err) throw err;
+        db.query(sql, [partyId], function (err, result) {
+            if (err) throw err;
+            res.status(201).json({ status: 'success', message: "Soirée supprimé de la BDD !" });
+        });
+    })
+};
+
 // Get all party :
 exports.getParty = (req, res, next) => {
 
