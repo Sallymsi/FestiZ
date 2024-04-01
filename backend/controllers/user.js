@@ -53,13 +53,14 @@ exports.login = (req, res, next) => {
         if (err) throw err;
         db.query(sql, [email], function (err, result) {
             if (err) throw err;
+            // Si utilisateur non trouvé
             if (!result[0]) {
-                return res.status(401).json({ error: "utilisateur introuvable" })
+                return res.status(401).json({ message: "utilisateur introuvable" });
             };
             bcrypt.compare(password, result[0].password)
                 .then(valid => {
                     if (!valid) {
-                        return res.status(401).json({ error: 'Mot de passe incorrect !' });
+                        return res.status(401).json({ message: 'Mot de passe incorrect !' });
                     }
                     res.status(200).json({
                         userId: result[0].id,
@@ -71,7 +72,7 @@ exports.login = (req, res, next) => {
                         )
                     });
                 })
-                .catch(error => res.status(500).json({ message: 'erreur' + error }));
+                .catch(error => res.status(500).json({ message: 'erreur' + err }));
         });
     })
 };

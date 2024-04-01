@@ -22,7 +22,7 @@ export default function LogoTitle({ title, size }) {
 
     return (
         <View onLayout={onLayoutRootView}>
-            <Text style={{ fontFamily: 'Shrikhand', fontSize: parseInt(size), color: '#01C38E', backgroundColor: '#ecf0f1' }}>{title}</Text>
+            <Text style={{ fontFamily: 'Shrikhand', fontSize: parseInt(size), color: '#01C38E' }}>{title}</Text>
         </View>
     );
 }

@@ -1,9 +1,11 @@
 import * as React from 'react';
-import { TextInput, Button, Text, SafeAreaView } from 'react-native';
+import { TextInput, Button, SafeAreaView } from 'react-native';
 import style from '../Style';
+import ModalView from '../components/utils/ModalView.jsx';
 
 export default function LoginScreen({ authContext, navigation }) {
     const [textError, onChangeTextError] = React.useState('');
+    const [modalVisible, setModalVisible] = React.useState(false);
     const [email, onChangeEmail] = React.useState('');
     const [pass, onChangePass] = React.useState('');
 
@@ -30,13 +32,16 @@ export default function LoginScreen({ authContext, navigation }) {
                 selectionColor={'#01C38E'}
                 maxLength={30}
             />
-            <Text style={{ color: "red", marginLeft: 12 }}>{textError}</Text>
+            {modalVisible && (
+                <ModalView text={textError} modalVisible={modalVisible} setModalVisible={setModalVisible} />
+            )}
             <Button
                 color="#01C38E"
                 title="Se connecter !"
                 onPress={() => {
                     if (!email || !pass) {
                         onChangeTextError('Veuillez remplir les champs ci-dessus.');
+                        setModalVisible(true);
                     } else {
                         authContext.signIn({ form });
                     }

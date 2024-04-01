@@ -14,6 +14,7 @@ import PartyScreen from '../components/PartyScreen.jsx';
 import PartyCardScreen from '../components/PartyCardScreen.jsx';
 import LogoTitle from '../components/utils/LogoTitle.jsx';
 import SplashScreen from '../components/utils/SplashScreen.jsx';
+import ModalView from '../components/utils/ModalView.jsx';
 import * as SecureStore from 'expo-secure-store';
 import { deleteValueFor } from '../js/secureStore';
 import { login, signup } from '../js/fetch';
@@ -25,6 +26,8 @@ const Stack = createNativeStackNavigator();
 function App() {
   const [userId, changeUserId] = React.useState(null);
   const [userToken, changeUserToken] = React.useState(null);
+  const [textErrorLogin, setTextErrorLogin] = React.useState('');
+
   const [state, dispatch] = React.useReducer(
     (prevState, action) => {
       switch (action.type) {
@@ -90,10 +93,14 @@ function App() {
           headers: { "Content-type": "application/json" }
         };
 
-        login(options).then((data) => {
-          changeUserId(data.userId);
-          changeUserToken(data.userToken);
-          dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
+        login(options).then(async (data) => {
+          if (data.userId && data.userToken){
+            changeUserId(data.userId);
+            changeUserToken(data.userToken);
+            dispatch({ type: 'SIGN_IN', token: data.token, userId: data.userId });
+          } else if (data.message) {
+            console.log(data.message);
+          }
         });
       },
       signOut: async () => {
